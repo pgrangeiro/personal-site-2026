@@ -1,0 +1,33 @@
+---
+import ContactExperience from './ContactExperience';
+---
+
+<div class="border-b border-[#333] bg-ink px-4 py-2 font-mono text-[11px] text-paper">
+  <div class="mx-auto flex max-w-4xl items-center gap-2">
+    <span aria-hidden="true" class="inline-block h-2 w-2 rounded-full bg-terracotta"></span>
+    Engineering management, team growth, and hands-on AI
+  </div>
+</div>
+
+<header class="sticky top-0 z-40 border-b border-hairline bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex min-h-20 max-w-4xl items-center justify-between gap-4 px-5 sm:px-6">
+    <a aria-label="Paula Grangeiro — Home" class="group shrink-0 text-left" href="/">
+      <span class="block font-editorial text-lg font-bold tracking-tight text-ink transition-colors group-hover:text-terracotta sm:text-xl">
+        Paula Grangeiro
+      </span>
+      <span class="hidden font-mono text-[10px] text-muted sm:block">
+        Engineering Manager & Hands-On Leader
+      </span>
+    </a>
+
+    <nav aria-label="Main navigation" class="flex items-center gap-1 sm:gap-3">
+      <a class="rounded-lg px-2 py-2 font-mono text-[11px] text-muted transition-colors hover:text-ink sm:px-3 sm:text-xs" href="/work">
+        Work & Notes
+      </a>
+      <a class="rounded-lg px-2 py-2 font-mono text-[11px] text-muted transition-colors hover:text-ink sm:px-3 sm:text-xs" href="/about">
+        About
+      </a>
+      <ContactExperience client:load />
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,32 @@
+---
+import type { BlogSummary } from '../schemas/blog';
+
+interface Props {
+  post: BlogSummary;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="group space-y-2 px-3 py-6 transition-colors hover:bg-sand/40">
+  <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+    <div class="flex items-center gap-2">
+      <span class="rounded border border-hairline bg-sand px-2 py-0.5 font-bold text-terracotta">
+        {post.type}
+      </span>
+      <span class="text-muted">{post.date}</span>
+    </div>
+    <span class="text-muted">{post.readTime}</span>
+  </div>
+  <h3 class="font-editorial text-xl font-bold text-ink transition-colors group-hover:text-terracotta">
+    <a href={`/work/${post.slug}`}>{post.title}</a>
+  </h3>
+  <p class="text-sm font-medium text-muted">{post.tldr}</p>
+  <div class="flex flex-wrap gap-2 pt-1">
+    {post.artifacts.map((artifact) => (
+      <span class="rounded border border-hairline bg-paper px-2 py-0.5 font-mono text-[11px] text-muted">
+        {artifact}
+      </span>
+    ))}
+  </div>
+</article>

@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PromptDemo from '../components/PromptDemo';
+import BaseLayout from './BaseLayout.astro';
+import { formatPublicationDate } from '../lib/blog';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+---
+
+<BaseLayout title={data.title} description={data.description}>
+  <article class="space-y-8">
+    <a class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta" href="/work">
+      <span aria-hidden="true">←</span>
+      Back to Work & Notes
+    </a>
+
+    <header class="space-y-5 border-b border-hairline pb-8">
+      <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
+        <span class="rounded border border-hairline bg-sand px-2.5 py-0.5 font-bold text-terracotta">
+          {data.type}
+        </span>
+        <span aria-hidden="true">·</span>
+        <time datetime={data.pubDate.toISOString()}>{formatPublicationDate(data.pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{data.readTime}</span>
+      </div>
+
+      <h1 class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
+        {data.title}
+      </h1>
+
+      <div class="space-y-1 rounded-xl border-l-4 border-terracotta bg-sand p-5 text-sm font-medium text-ink sm:text-base">
+        <span class="block font-mono text-xs font-bold uppercase tracking-wider text-terracotta">
+          Executive TL;DR
+        </span>
+        <p>{data.tldr.replace('TL;DR: ', '')}</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 pt-1">
+        {data.artifacts.map((artifact) => (
+          <span class="rounded-md border border-hairline bg-paper px-2.5 py-1 font-mono text-xs text-ink">
+            {artifact}
+          </span>
+        ))}
+        {data.githubUrl && (
+          <a
+            class="rounded-md bg-ink px-2.5 py-1 font-mono text-xs text-paper transition-colors hover:bg-terracotta"
+            href={data.githubUrl}
+            rel="noreferrer"
+            target="_blank"
+          >
+            View repository ↗
+          </a>
+        )}
+      </div>
+    </header>
+
+    <div class="article-body">
+      <slot />
+    </div>
+
+    {data.hasInteractiveComponent && <PromptDemo client:visible />}
+
+    <section class="mt-12 space-y-4 rounded-2xl bg-ink p-6 text-paper shadow-md sm:p-8">
+      <p class="font-mono text-xs text-terracotta">CONTEXTUAL COFFEE CHAT</p>
+      <h2 class="font-editorial text-2xl font-bold">
+        Navigating team leadership or AI agent adoption?
+      </h2>
+      <p class="max-w-xl text-sm leading-relaxed text-muted-light">
+        I regularly chat with senior engineers transitioning into management and teams evaluating AI developer tools. Choose a topic to start a conversation.
+      </p>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <button
+          class="inline-flex items-center gap-1.5 rounded-lg bg-terracotta px-4 py-2.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-[#B24D28]"
+          data-contact-intent="leadership"
+          data-open-contact
+          type="button"
+        >
+          Ask a leadership question <span aria-hidden="true">→</span>
+        </button>
+        <button
+          class="inline-flex items-center gap-1.5 rounded-lg border border-[#3D3A36] bg-[#2A2825] px-4 py-2.5 font-mono text-xs text-white transition-colors hover:bg-[#3D3A36]"
+          data-contact-intent="ai-workflows"
+          data-open-contact
+          type="button"
+        >
+          Compare AI workflows <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

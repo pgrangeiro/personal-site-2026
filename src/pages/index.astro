@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getBlogPosts, toBlogSummary } from '../lib/blog';
+
+const posts = await getBlogPosts();
+const featuredPosts = posts.filter((post) => post.data.featured);
+const postSummaries = posts.map(toBlogSummary);
+---
+
+<BaseLayout
+  title="Home"
+  description="Paula Grangeiro writes about engineering leadership, team growth, and hands-on AI."
+>
+  <div class="space-y-14">
+    <section class="space-y-7">
+      <div class="flex flex-col items-start gap-6 sm:flex-row sm:gap-8">
+        <div
+          aria-hidden="true"
+          class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-hairline bg-sand font-editorial text-2xl font-bold text-terracotta sm:h-24 sm:w-24"
+        >
+          PG
+        </div>
+        <div class="max-w-2xl space-y-3">
+          <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-sand px-3 py-1 font-mono text-xs text-terracotta">
+            Engineering Management in the AI Era
+          </div>
+          <h1 class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
+            Helping engineers grow into leadership & staying hands-on with AI.
+          </h1>
+          <p class="text-base leading-relaxed text-muted sm:text-lg">
+            I'm Paula Grangeiro—an Engineering Manager passionate about helping software engineers transition into high-impact leadership roles. I write about team growth, engineering management, and why staying hands-on with coding agents and system architecture makes stronger leaders.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="featured-heading" class="space-y-6 border-t border-hairline pt-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="font-editorial text-2xl font-bold text-ink" id="featured-heading">
+            Featured Work & Playbooks
+          </h2>
+          <p class="mt-1 font-mono text-xs text-muted">Engineering notebook entries</p>
+        </div>
+        <a
+          class="inline-flex shrink-0 items-center gap-1 font-mono text-xs font-semibold text-terracotta hover:underline"
+          href="/work"
+        >
+          View all ({postSummaries.length})
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="divide-y divide-hairline border-y border-hairline">
+        {featuredPosts.map((post) => <PostCard post={toBlogSummary(post)} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

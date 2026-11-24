@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FAF8F5;
+  --color-ink: #1F1E1C;
+  --color-sand: #F2ECE1;
+  --color-terracotta: #C85A32;
+  --color-hairline: #E6DFD3;
+  --color-muted: #6E6A63;
+  --color-muted-light: #A09B8F;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper font-sans text-ink antialiased;
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #C85A32;
+  outline-offset: 3px;
+}
+
+::selection {
+  background: #F2ECE1;
+  color: #C85A32;
+}
+
+.article-body {
+  @apply space-y-6 text-base leading-relaxed text-ink sm:text-lg;
+}
+
+.article-body > * {
+  @apply my-6;
+}
+
+.article-body h2,
+.article-body h3 {
+  @apply mt-10 font-editorial text-2xl font-bold text-ink sm:text-3xl;
+}
+
+.article-body p {
+  @apply leading-relaxed text-ink;
+}
+
+.article-body strong {
+  @apply font-semibold;
+}
+
+.article-body ol,
+.article-body ul {
+  @apply ml-6 list-outside space-y-2;
+}
+
+.article-body ol {
+  @apply list-decimal;
+}
+
+.article-body ul {
+  @apply list-disc;
+}
+
+.article-body li::marker {
+  color: #C85A32;
+}
+
+.article-body blockquote {
+  @apply rounded-r-lg border-l-4 border-terracotta bg-sand/50 py-3 pl-4 pr-4 font-editorial text-xl italic text-ink;
+}
