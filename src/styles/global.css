@@ -83,3 +83,17 @@ textarea:focus-visible {
 .article-body blockquote {
   @apply rounded-r-lg border-l-4 border-terracotta bg-sand/50 py-3 pl-4 pr-4 font-editorial text-xl italic text-ink;
 }
+
+.article-body pre.astro-code {
+  @apply my-6 max-w-full overflow-x-auto rounded-xl border border-[#3D3A36] p-4 font-mono text-xs leading-relaxed sm:text-sm;
+  background-color: #141312 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-body pre.astro-code code {
+  @apply bg-transparent p-0;
+}
+
+.article-body :not(pre) > code {
+  @apply rounded border border-hairline bg-sand px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+}

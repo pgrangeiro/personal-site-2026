@@ -11,17 +11,26 @@ export const BLOG_CATEGORIES = [
   label: string;
 }[];
 
+const artifactSchema = z.object({
+  label: z.string().min(1),
+  url: z
+    .url()
+    .refine((value) => ['http:', 'https:'].includes(new URL(value).protocol), {
+      message: 'Artifact URLs must use HTTP or HTTPS.',
+    })
+    .optional(),
+});
+
 export const blogSchema = z.object({
-  title: z.string(),
-  description: z.string(),
+  title: z.string().min(1),
+  description: z.string().min(1),
   pubDate: z.coerce.date(),
-  type: z.string(),
+  type: z.string().min(1),
   typeCategory: z.enum(BLOG_CATEGORY_IDS),
-  tldr: z.string(),
-  readTime: z.string(),
-  artifacts: z.array(z.string()).default([]),
+  tldr: z.string().min(1),
+  readTime: z.string().min(1),
+  artifacts: z.array(artifactSchema).default([]),
   featured: z.boolean().default(false),
-  githubUrl: z.url().optional(),
   hasInteractiveComponent: z.boolean().default(false),
 });
 

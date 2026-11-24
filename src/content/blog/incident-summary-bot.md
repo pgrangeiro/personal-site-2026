@@ -7,9 +7,9 @@ typeCategory: prototypes
 tldr: "TL;DR: Slack bot that parses active incident channels and drafts 80% accurate post-mortems in 30 seconds."
 readTime: "5 min read"
 artifacts:
-  - Live Demo
-  - TypeScript
-  - Vector DB
+  - label: Live Demo
+  - label: TypeScript
+  - label: Vector DB
 featured: false
 ---
 

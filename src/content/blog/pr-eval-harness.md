@@ -7,11 +7,11 @@ typeCategory: prototypes
 tldr: "TL;DR: How a 140-line AST + LLM evaluation pipeline reduced pull request architectural regressions by 94%."
 readTime: "7 min read"
 artifacts:
-  - "Repo + Eval Metrics"
-  - Python
-  - Claude API
+  - label: "Repo + Eval Metrics"
+    url: "https://github.com/pgrangeiro/pr-eval-harness"
+  - label: Python
+  - label: Claude API
 featured: true
-githubUrl: "https://github.com/pgrangeiro/pr-eval-harness"
 hasInteractiveComponent: true
 ---
 
@@ -29,3 +29,10 @@ Rather than relying solely on human review, we built a **2-tier evaluation pipel
 2. **LLM Evaluator:** Scores the PR against vector-embedded Architecture Decision Records (ADRs).
 
 Below is the exact evolution from a naive prompt attempt to our production evaluation prompt and output diff parser.
+
+For example, an architectural check can flag database imports in UI modules before a pull request reaches human review:
+
+```python
+def crosses_ui_boundary(import_path: str) -> bool:
+    return import_path.startswith("database.")
+```

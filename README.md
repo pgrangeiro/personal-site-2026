@@ -46,7 +46,7 @@ Create a Markdown file in `src/content/blog/`, using the filename as the post UR
 
 Start with this frontmatter:
 
-```md
+````md
 ---
 title: "A useful title"
 description: "A short summary for listings and search engines."
@@ -55,14 +55,29 @@ type: "CAREER PLAYBOOK"
 typeCategory: leadership
 tldr: "A concise takeaway for the post."
 readTime: "5 min read"
-artifacts: []
+artifacts:
+  - label: "Source repository"
+    url: "https://github.com/example/project"
+  - label: "Architecture diagram"
 featured: false
 ---
 
-Write the post body here using Markdown.
-```
+Write the post body here using Markdown. Fenced code blocks are highlighted at build time:
 
-`typeCategory` must be `leadership`, `ai`, or `prototypes`. `artifacts` and `featured` have defaults; `githubUrl` and `hasInteractiveComponent` are optional. Set `hasInteractiveComponent: true` to include the interactive prompt demo after the post body. The filename determines the URL; no page or index edits are needed to publish a new post.
+```ts
+const postPublished = true;
+```
+````
+
+`typeCategory` must be `leadership`, `ai`, or `prototypes`. Required metadata is validated when the collection is built; a missing or invalid required field fails `pnpm build` with a content validation error. `artifacts` and `featured` have defaults. Each artifact requires a `label` and may include an HTTP(S) `url`, which is rendered as an external link. `hasInteractiveComponent` is optional; set it to `true` to include the interactive prompt demo after the post body. Fenced code is syntax-highlighted by Shiki and displayed on the site's dark code surface. The filename determines the URL; no page or index edits are needed to publish a new post.
+
+Before publishing, run the focused tests and production checks:
+
+```sh
+pnpm test
+pnpm check
+pnpm build
+```
 
 Work and category archives are statically generated in pages of 20 posts. Category links open `/work/category/<category>/`, with additional pages generated as needed. The Pagefind search UI is available on archive pages after `pnpm build` (the development server does not generate its index).
 

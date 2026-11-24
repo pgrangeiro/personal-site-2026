@@ -7,8 +7,8 @@ typeCategory: leadership
 tldr: "TL;DR: Focus on measuring developer friction scores first before embarking on major infrastructure migrations."
 readTime: "6 min read"
 artifacts:
-  - Management Playbook
-  - Metrics Sheet
+  - label: Management Playbook
+  - label: Metrics Sheet
 featured: false
 ---
 

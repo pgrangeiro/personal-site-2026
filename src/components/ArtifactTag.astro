@@ -1,0 +1,26 @@
+---
+import type { BlogData } from '../schemas/blog';
+
+interface Props {
+  artifact: BlogData['artifacts'][number];
+  compact?: boolean;
+}
+
+const { artifact, compact = false } = Astro.props;
+const classes = compact
+  ? 'rounded border border-hairline bg-paper px-2 py-0.5 font-mono text-[11px] text-muted'
+  : 'rounded-md border border-hairline bg-paper px-2.5 py-1 font-mono text-xs text-ink';
+---
+
+{artifact.url ? (
+  <a
+    class={`${classes} inline-flex items-center gap-1 transition-colors hover:border-terracotta hover:text-terracotta`}
+    href={artifact.url}
+    rel="noreferrer"
+    target="_blank"
+  >
+    {artifact.label}<span aria-hidden="true">↗</span>
+  </a>
+) : (
+  <span class={classes}>{artifact.label}</span>
+)}

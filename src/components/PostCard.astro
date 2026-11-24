@@ -1,5 +1,6 @@
 ---
 import type { BlogSummary } from '../schemas/blog';
+import ArtifactTag from './ArtifactTag.astro';
 import CategoryLink from './CategoryLink.astro';
 
 interface Props {
@@ -22,10 +23,6 @@ const { post } = Astro.props;
   </h3>
   <p class="text-sm font-medium text-muted">{post.tldr}</p>
   <div class="flex flex-wrap gap-2 pt-1">
-    {post.artifacts.map((artifact) => (
-      <span class="rounded border border-hairline bg-paper px-2 py-0.5 font-mono text-[11px] text-muted">
-        {artifact}
-      </span>
-    ))}
+    {post.artifacts.map((artifact) => <ArtifactTag artifact={artifact} compact />)}
   </div>
 </article>

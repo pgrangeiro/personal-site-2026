@@ -7,8 +7,8 @@ typeCategory: leadership
 tldr: 'TL;DR: Traditional "hands-off" management advice is outdated. Modern EMs maintain tactical intuition by building internal dev tools.'
 readTime: "6 min read"
 artifacts:
-  - Leadership Guide
-  - "10% Allocation Framework"
+  - label: Leadership Guide
+  - label: "10% Allocation Framework"
 featured: true
 ---
 

@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import PromptDemo from '../components/PromptDemo';
+import ArtifactTag from '../components/ArtifactTag.astro';
 import CategoryLink from '../components/CategoryLink.astro';
 import BaseLayout from './BaseLayout.astro';
 import { formatPublicationDate } from '../lib/blog';
@@ -41,21 +42,7 @@ const { data } = post;
       </div>
 
       <div class="flex flex-wrap items-center gap-2 pt-1">
-        {data.artifacts.map((artifact) => (
-          <span class="rounded-md border border-hairline bg-paper px-2.5 py-1 font-mono text-xs text-ink">
-            {artifact}
-          </span>
-        ))}
-        {data.githubUrl && (
-          <a
-            class="rounded-md bg-ink px-2.5 py-1 font-mono text-xs text-paper transition-colors hover:bg-terracotta"
-            href={data.githubUrl}
-            rel="noreferrer"
-            target="_blank"
-          >
-            View repository ↗
-          </a>
-        )}
+        {data.artifacts.map((artifact) => <ArtifactTag artifact={artifact} />)}
       </div>
     </header>
 

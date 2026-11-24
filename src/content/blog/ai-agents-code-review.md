@@ -7,9 +7,9 @@ typeCategory: ai
 tldr: "TL;DR: A 3-tier review pipeline that saved 14 hours per engineer per week while maintaining high security standards."
 readTime: "8 min read"
 artifacts:
-  - Architecture Diagram
-  - TypeScript
-  - Slack Bot
+  - label: Architecture Diagram
+  - label: TypeScript
+  - label: Slack Bot
 featured: true
 ---
 
