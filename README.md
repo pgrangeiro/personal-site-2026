@@ -95,4 +95,4 @@ The repository is configured for a static Astro build; the Vercel project/Git co
 
 ## Contact form
 
-The contact dialog is a front-end preview only. It does not send or store messages, and the submit control stays disabled until an email or backend delivery method is configured.
+The Coffee Chat dialog offers leadership, AI workflow, and general conversation prompts with inline name, email, and message validation. Email delivery is not configured: submitting a valid form does not send or store the message and clearly says so. The dialog offers a prefilled `mailto:` link to open the visitor's email app; a message is only sent if the visitor completes sending it there.
