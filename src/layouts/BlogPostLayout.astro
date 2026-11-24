@@ -12,9 +12,15 @@ interface Props {
 
 const { post } = Astro.props;
 const { data } = post;
+const tldrSummary = data.tldr.replace(/^TL;DR:\s*/i, '');
 ---
 
-<BaseLayout title={data.title} description={data.description}>
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  socialDescription={tldrSummary}
+  ogType="article"
+>
   <article class="space-y-8" data-pagefind-body>
     <a class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta" href="/work">
       <span aria-hidden="true">←</span>
@@ -38,7 +44,7 @@ const { data } = post;
         <span class="block font-mono text-xs font-bold uppercase tracking-wider text-terracotta">
           Executive TL;DR
         </span>
-        <p>{data.tldr.replace('TL;DR: ', '')}</p>
+        <p>{tldrSummary}</p>
       </div>
 
       <div class="flex flex-wrap items-center gap-2 pt-1">
@@ -79,5 +85,20 @@ const { data } = post;
         </button>
       </div>
     </section>
+
+    <a
+      class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta"
+      href="/work"
+    >
+      <span aria-hidden="true">←</span>
+      Back to Work & Notes
+    </a>
   </article>
 </BaseLayout>
+
+<script>
+  import { addCodeCopyButtons } from '../lib/codeBlockCopy';
+
+  const articleBody = document.querySelector('.article-body');
+  if (articleBody) addCodeCopyButtons(articleBody);
+</script>

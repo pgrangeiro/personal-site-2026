@@ -84,14 +84,22 @@ textarea:focus-visible {
   @apply rounded-r-lg border-l-4 border-terracotta bg-sand/50 py-3 pl-4 pr-4 font-editorial text-xl italic text-ink;
 }
 
+.article-body .code-block {
+  @apply relative my-6 max-w-full;
+}
+
 .article-body pre.astro-code {
-  @apply my-6 max-w-full overflow-x-auto rounded-xl border border-[#3D3A36] p-4 font-mono text-xs leading-relaxed sm:text-sm;
+  @apply m-0 max-w-full overflow-x-auto rounded-xl border border-[#3D3A36] p-4 font-mono text-xs leading-relaxed sm:text-sm;
   background-color: #141312 !important;
   -webkit-overflow-scrolling: touch;
 }
 
 .article-body pre.astro-code code {
-  @apply bg-transparent p-0;
+  @apply block bg-transparent p-0 pr-20;
+}
+
+.article-body .code-copy-button {
+  @apply absolute right-3 top-3 z-10 rounded border border-[#3D3A36] bg-[#2A2825] px-2 py-1 font-mono text-[10px] font-semibold text-muted-light transition-colors hover:text-paper;
 }
 
 .article-body :not(pre) > code {

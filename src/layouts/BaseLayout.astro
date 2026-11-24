@@ -7,16 +7,23 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  socialDescription?: string;
+  ogType?: 'website' | 'article';
   enableSearch?: boolean;
 }
 
-const { title, description, enableSearch = false } = Astro.props;
+const { title, description, socialDescription, ogType, enableSearch = false } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      socialDescription={socialDescription}
+      ogType={ogType}
+    />
     {enableSearch && !import.meta.env.DEV && (
       <>
         <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
