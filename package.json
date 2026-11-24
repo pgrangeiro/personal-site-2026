@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
@@ -30,6 +30,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
     "jsdom": "26.1.0",
+    "pagefind": "^1.6.0",
     "tailwindcss": "^4.3.5",
     "typescript": "^6.0.3",
     "vitest": "^5.1.1"

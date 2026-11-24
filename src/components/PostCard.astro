@@ -1,5 +1,6 @@
 ---
 import type { BlogSummary } from '../schemas/blog';
+import CategoryLink from './CategoryLink.astro';
 
 interface Props {
   post: BlogSummary;
@@ -11,9 +12,7 @@ const { post } = Astro.props;
 <article class="group space-y-2 px-3 py-6 transition-colors hover:bg-sand/40">
   <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
     <div class="flex items-center gap-2">
-      <span class="rounded border border-hairline bg-sand px-2 py-0.5 font-bold text-terracotta">
-        {post.type}
-      </span>
+      <CategoryLink category={post.typeCategory} type={post.type} />
       <span class="text-muted">{post.date}</span>
     </div>
     <span class="text-muted">{post.readTime}</span>

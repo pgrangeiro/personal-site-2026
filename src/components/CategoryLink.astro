@@ -1,0 +1,20 @@
+---
+import { BLOG_CATEGORIES, type BlogCategory } from '../schemas/blog';
+
+interface Props {
+  category: BlogCategory;
+  type: string;
+}
+
+const { category, type } = Astro.props;
+const categoryLabel = BLOG_CATEGORIES.find(({ id }) => id === category)?.label;
+---
+
+<a
+  aria-label={`View all ${categoryLabel} posts`}
+  class="rounded border border-hairline bg-sand px-2 py-0.5 font-bold text-terracotta transition-colors hover:border-terracotta hover:underline focus-visible:underline"
+  data-pagefind-filter={`category:${category}`}
+  href={`/work/category/${category}/`}
+>
+  {type}
+</a>

@@ -1,29 +1,18 @@
 ---
-import WorkIndex from '../../components/WorkIndex';
+import WorkArchive from '../../components/WorkArchive.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getBlogPosts, toBlogSummary } from '../../lib/blog';
+import { getPageCount, getPageItems } from '../../lib/pagination';
 
 const posts = await getBlogPosts();
-const postSummaries = posts.map(toBlogSummary);
+const pageCount = getPageCount(posts.length);
+const postSummaries = getPageItems(posts, 1).map(toBlogSummary);
 ---
 
 <BaseLayout
   title="Work & Notes"
   description="A consolidated index of engineering leadership playbooks, AI prototypes, and architecture notes."
+  enableSearch
 >
-  <div class="space-y-8">
-    <header class="space-y-3 border-b border-hairline pb-6">
-      <span class="font-mono text-xs font-semibold uppercase tracking-wider text-terracotta">
-        SWISS ENGINEERING NOTEBOOK
-      </span>
-      <h1 class="font-editorial text-3xl font-bold text-ink sm:text-4xl">
-        Work, Playbooks & AI Notes
-      </h1>
-      <p class="max-w-2xl text-base text-muted">
-        A consolidated index pairing career playbooks with hands-on AI prototypes, code harnesses, and architectural field notes.
-      </p>
-    </header>
-
-    <WorkIndex client:load items={postSummaries} />
-  </div>
+  <WorkArchive posts={postSummaries} page={1} pageCount={pageCount} />
 </BaseLayout>

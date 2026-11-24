@@ -26,7 +26,7 @@ Astro serves the site at [http://localhost:4321](http://localhost:4321).
 
 ## Tests and production build
 
-Run the Vitest suite, check Astro/TypeScript diagnostics, and create the static production build:
+Run the Vitest suite, check Astro/TypeScript diagnostics, and create the static production build and Pagefind search index:
 
 ```sh
 pnpm test
@@ -34,7 +34,7 @@ pnpm check
 pnpm build
 ```
 
-The generated site is written to `dist/`. Preview that build locally with:
+The generated site and search index are written to `dist/`. Preview that build locally with:
 
 ```sh
 pnpm preview
@@ -42,7 +42,7 @@ pnpm preview
 
 ## Publishing a blog post
 
-Create a Markdown file in `src/content/blog/`, using the filename as the post URL slug (for example, `my-new-post.md` becomes `/work/my-new-post/`). Astro validates each post's frontmatter against the blog collection schema and automatically includes it in the static article route and work index.
+Create a Markdown file in `src/content/blog/`, using the filename as the post URL slug (for example, `my-new-post.md` becomes `/work/my-new-post/`). Astro validates each post's frontmatter against the blog collection schema and automatically includes it in the static article route, work archive, category archive, and Pagefind search index.
 
 Start with this frontmatter:
 
@@ -63,6 +63,8 @@ Write the post body here using Markdown.
 ```
 
 `typeCategory` must be `leadership`, `ai`, or `prototypes`. `artifacts` and `featured` have defaults; `githubUrl` and `hasInteractiveComponent` are optional. Set `hasInteractiveComponent: true` to include the interactive prompt demo after the post body. The filename determines the URL; no page or index edits are needed to publish a new post.
+
+Work and category archives are statically generated in pages of 20 posts. Category links open `/work/category/<category>/`, with additional pages generated as needed. The Pagefind search UI is available on archive pages after `pnpm build` (the development server does not generate its index).
 
 ## Deploying with Vercel
 

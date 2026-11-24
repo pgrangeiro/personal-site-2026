@@ -1,11 +1,22 @@
 import { z } from 'astro/zod';
 
+export const BLOG_CATEGORY_IDS = ['leadership', 'ai', 'prototypes'] as const;
+
+export const BLOG_CATEGORIES = [
+  { id: 'leadership', label: 'Career Playbooks' },
+  { id: 'ai', label: 'AI & Systems' },
+  { id: 'prototypes', label: 'Prototypes & Tools' },
+] as const satisfies readonly {
+  id: (typeof BLOG_CATEGORY_IDS)[number];
+  label: string;
+}[];
+
 export const blogSchema = z.object({
   title: z.string(),
   description: z.string(),
   pubDate: z.coerce.date(),
   type: z.string(),
-  typeCategory: z.enum(['leadership', 'ai', 'prototypes']),
+  typeCategory: z.enum(BLOG_CATEGORY_IDS),
   tldr: z.string(),
   readTime: z.string(),
   artifacts: z.array(z.string()).default([]),
@@ -15,6 +26,7 @@ export const blogSchema = z.object({
 });
 
 export type BlogData = z.infer<typeof blogSchema>;
+export type BlogCategory = BlogData['typeCategory'];
 
 export type BlogSummary = Pick<
   BlogData,

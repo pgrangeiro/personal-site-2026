@@ -1,0 +1,35 @@
+---
+import { BLOG_CATEGORIES, type BlogCategory } from '../../../../schemas/blog';
+import { getBlogPosts, toBlogSummary } from '../../../../lib/blog';
+import { getPaginatedPages } from '../../../../lib/pagination';
+import WorkArchive from '../../../../components/WorkArchive.astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+
+  return BLOG_CATEGORIES.map(({ id }) => {
+    const categoryPosts = posts.filter((post) => post.data.typeCategory === id);
+    const [firstPage] = getPaginatedPages(categoryPosts);
+    return {
+      params: { category: id },
+      props: {
+        posts: firstPage.items.map(toBlogSummary),
+        pageCount: firstPage.pageCount,
+        category: id,
+      },
+    };
+  });
+}
+
+const { posts, pageCount, category } = Astro.props as {
+  posts: ReturnType<typeof toBlogSummary>[];
+  pageCount: number;
+  category: BlogCategory;
+};
+const categoryLabel = BLOG_CATEGORIES.find((item) => item.id === category)?.label ?? 'Work & Notes';
+---
+
+<BaseLayout title={categoryLabel} description={`All posts in ${categoryLabel}.`} enableSearch>
+  <WorkArchive posts={posts} page={1} pageCount={pageCount} category={category} />
+</BaseLayout>

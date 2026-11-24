@@ -1,0 +1,84 @@
+---
+import Pagination from './Pagination.astro';
+import PostCard from './PostCard.astro';
+import { BLOG_CATEGORIES, type BlogCategory, type BlogSummary } from '../schemas/blog';
+
+interface Props {
+  posts: BlogSummary[];
+  page: number;
+  pageCount: number;
+  category?: BlogCategory;
+}
+
+const { posts, page, pageCount, category } = Astro.props;
+const basePath = category ? `/work/category/${category}` : '/work';
+const title = category
+  ? BLOG_CATEGORIES.find((item) => item.id === category)?.label ?? 'Work & Notes'
+  : 'Work, Playbooks & AI Notes';
+---
+
+<div class="space-y-8">
+  <header class="space-y-3 border-b border-hairline pb-6">
+    <span class="font-mono text-xs font-semibold uppercase tracking-wider text-terracotta">
+      SWISS ENGINEERING NOTEBOOK
+    </span>
+    <h1 class="font-editorial text-3xl font-bold text-ink sm:text-4xl">{title}</h1>
+    <p class="max-w-2xl text-base text-muted">
+      A consolidated index pairing career playbooks with hands-on AI prototypes, code harnesses, and architectural field notes.
+    </p>
+  </header>
+
+  <div class="space-y-6">
+    <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+      <nav aria-label="Filter work by category" class="flex items-center gap-2 overflow-x-auto pb-1">
+        <a
+          aria-current={!category ? 'page' : undefined}
+          class:list={[
+            'whitespace-nowrap rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors',
+            !category
+              ? 'border-terracotta bg-terracotta font-bold text-white'
+              : 'border-hairline bg-sand text-muted hover:border-terracotta hover:text-ink',
+          ]}
+          href="/work/"
+        >
+          All Items
+        </a>
+        {BLOG_CATEGORIES.map((item) => (
+          <a
+            aria-current={category === item.id ? 'page' : undefined}
+            class:list={[
+              'whitespace-nowrap rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors',
+              category === item.id
+                ? 'border-terracotta bg-terracotta font-bold text-white'
+                : 'border-hairline bg-sand text-muted hover:border-terracotta hover:text-ink',
+            ]}
+            href={`/work/category/${item.id}/`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="w-full sm:w-64">
+        {import.meta.env.DEV ? (
+          <p class="font-mono text-xs text-muted">Search is available after a production build.</p>
+        ) : (
+          <pagefind-searchbox placeholder="Search all posts" max-results="5" hide-shortcut>
+          </pagefind-searchbox>
+        )}
+      </div>
+    </div>
+
+    <section aria-label={category ? `${title} posts` : 'All posts'} class="divide-y divide-hairline border-y border-hairline">
+      {posts.length > 0 ? (
+        posts.map((post) => <PostCard post={post} />)
+      ) : (
+        <p class="py-12 text-center font-mono text-sm text-muted">
+          No notebook entries in this category yet.
+        </p>
+      )}
+    </section>
+
+    <Pagination basePath={basePath} page={page} pageCount={pageCount} />
+  </div>
+</div>

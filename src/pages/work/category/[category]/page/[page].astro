@@ -1,0 +1,47 @@
+---
+import { BLOG_CATEGORIES, type BlogCategory } from '../../../../../schemas/blog';
+import { getBlogPosts, toBlogSummary } from '../../../../../lib/blog';
+import { getPaginatedPages } from '../../../../../lib/pagination';
+import WorkArchive from '../../../../../components/WorkArchive.astro';
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+  const paths = [];
+
+  for (const { id } of BLOG_CATEGORIES) {
+    const categoryPosts = posts.filter((post) => post.data.typeCategory === id);
+    const pages = getPaginatedPages(categoryPosts);
+
+    for (const { page, pageCount, items } of pages.slice(1)) {
+      paths.push({
+        params: { category: id, page: String(page) },
+        props: {
+          posts: items.map(toBlogSummary),
+          page,
+          pageCount,
+          category: id,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { posts, page, pageCount, category } = Astro.props as {
+  posts: ReturnType<typeof toBlogSummary>[];
+  page: number;
+  pageCount: number;
+  category: BlogCategory;
+};
+const categoryLabel = BLOG_CATEGORIES.find((item) => item.id === category)?.label ?? 'Work & Notes';
+---
+
+<BaseLayout
+  title={`${categoryLabel} — Page ${page}`}
+  description={`Page ${page} of ${categoryLabel} posts.`}
+  enableSearch
+>
+  <WorkArchive posts={posts} page={page} pageCount={pageCount} category={category} />
+</BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import PromptDemo from '../components/PromptDemo';
+import CategoryLink from '../components/CategoryLink.astro';
 import BaseLayout from './BaseLayout.astro';
 import { formatPublicationDate } from '../lib/blog';
 
@@ -13,7 +14,7 @@ const { data } = post;
 ---
 
 <BaseLayout title={data.title} description={data.description}>
-  <article class="space-y-8">
+  <article class="space-y-8" data-pagefind-body>
     <a class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta" href="/work">
       <span aria-hidden="true">←</span>
       Back to Work & Notes
@@ -21,9 +22,7 @@ const { data } = post;
 
     <header class="space-y-5 border-b border-hairline pb-8">
       <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
-        <span class="rounded border border-hairline bg-sand px-2.5 py-0.5 font-bold text-terracotta">
-          {data.type}
-        </span>
+        <CategoryLink category={data.typeCategory} type={data.type} />
         <span aria-hidden="true">·</span>
         <time datetime={data.pubDate.toISOString()}>{formatPublicationDate(data.pubDate)}</time>
         <span aria-hidden="true">·</span>

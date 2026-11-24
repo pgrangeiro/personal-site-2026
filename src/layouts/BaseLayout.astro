@@ -7,15 +7,22 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  enableSearch?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, enableSearch = false } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    {enableSearch && !import.meta.env.DEV && (
+      <>
+        <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
+        <script is:inline type="module" src="/pagefind/pagefind-component-ui.js"></script>
+      </>
+    )}
   </head>
   <body>
     <div class="flex min-h-screen flex-col">
