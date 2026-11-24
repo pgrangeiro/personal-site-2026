@@ -44,7 +44,7 @@ export default function ContactExperience() {
     <>
       <button
         aria-haspopup="dialog"
-        className="inline-flex items-center gap-2 rounded-full bg-terracotta px-4 py-2 font-mono text-xs font-semibold text-paper transition-colors hover:bg-[#B24D28]"
+        className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2 font-mono text-xs font-semibold text-paper shadow-xs transition-all hover:bg-[#B24D28]"
         onClick={() => {
           setIntent('leadership');
           setIsOpen(true);

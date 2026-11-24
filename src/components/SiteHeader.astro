@@ -1,5 +1,14 @@
 ---
 import ContactExperience from './ContactExperience';
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+const isWork = pathname === '/work' || pathname.startsWith('/work/');
+const isAbout = pathname === '/about' || pathname === '/about/';
+const navLinkClass =
+  'rounded-lg px-2 py-1.5 font-mono text-xs transition-all sm:px-3 sm:text-sm';
+const activeNavLinkClass = 'border border-hairline bg-sand font-semibold text-terracotta';
+const inactiveNavLinkClass = 'text-muted hover:text-ink';
 ---
 
 <div class="border-b border-[#333] bg-ink px-4 py-2 font-mono text-[11px] text-paper">
@@ -9,22 +18,35 @@ import ContactExperience from './ContactExperience';
   </div>
 </div>
 
-<header class="sticky top-0 z-40 border-b border-hairline bg-paper/95 backdrop-blur">
-  <div class="mx-auto flex min-h-20 max-w-4xl items-center justify-between gap-4 px-5 sm:px-6">
-    <a aria-label="Paula Grangeiro — Home" class="group shrink-0 text-left" href="/">
-      <span class="block font-editorial text-lg font-bold tracking-tight text-ink transition-colors group-hover:text-terracotta sm:text-xl">
+<header class="sticky top-0 z-40 border-b border-hairline bg-paper/90 backdrop-blur-md transition-all">
+  <div class="mx-auto flex min-h-20 max-w-4xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:flex-nowrap sm:px-6 sm:py-0">
+    <a
+      aria-current={isHome ? 'page' : undefined}
+      aria-label="Paula Grangeiro — Home"
+      class="group shrink-0 text-left"
+      href="/"
+    >
+      <span class="block font-editorial text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-terracotta">
         Paula Grangeiro
       </span>
-      <span class="hidden font-mono text-[10px] text-muted sm:block">
+      <span class="block font-mono text-xs text-muted">
         Engineering Manager & Hands-On Leader
       </span>
     </a>
 
-    <nav aria-label="Main navigation" class="flex items-center gap-1 sm:gap-3">
-      <a class="rounded-lg px-2 py-2 font-mono text-[11px] text-muted transition-colors hover:text-ink sm:px-3 sm:text-xs" href="/work">
+    <nav aria-label="Main navigation" class="flex w-full items-center justify-between gap-3 sm:w-auto sm:gap-4">
+      <a
+        aria-current={isWork ? 'page' : undefined}
+        class={`${navLinkClass} ${isWork ? activeNavLinkClass : inactiveNavLinkClass}`}
+        href="/work"
+      >
         Work & Notes
       </a>
-      <a class="rounded-lg px-2 py-2 font-mono text-[11px] text-muted transition-colors hover:text-ink sm:px-3 sm:text-xs" href="/about">
+      <a
+        aria-current={isAbout ? 'page' : undefined}
+        class={`${navLinkClass} ${isAbout ? activeNavLinkClass : inactiveNavLinkClass}`}
+        href="/about"
+      >
         About
       </a>
       <ContactExperience client:load />
