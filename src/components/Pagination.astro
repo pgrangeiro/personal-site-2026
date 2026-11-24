@@ -11,7 +11,7 @@ const pageUrl = (pageNumber: number) =>
 ---
 
 {pageCount > 1 && (
-  <nav aria-label="Pagination" class="flex items-center justify-between border-t border-hairline pt-5 font-mono text-xs">
+  <nav data-archive-static-pagination aria-label="Pagination" class="flex items-center justify-between border-t border-hairline pt-5 font-mono text-xs">
     {page > 1 ? (
       <a class="rounded-lg border border-hairline bg-sand px-3 py-2 text-ink transition-colors hover:border-terracotta hover:text-terracotta" href={pageUrl(page - 1)}>
         ← Newer posts

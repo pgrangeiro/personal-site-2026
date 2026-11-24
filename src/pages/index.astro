@@ -1,11 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import { getBlogPosts, toBlogSummary } from '../lib/blog';
+import portrait from '../assets/paula-grangeiro.jpeg';
 
 const posts = await getBlogPosts();
-const featuredPosts = posts.filter((post) => post.data.featured);
-const postSummaries = posts.map(toBlogSummary);
+const featuredPosts = posts.filter((post) => post.data.featured).slice(0, 4);
 ---
 
 <BaseLayout
@@ -13,47 +14,98 @@ const postSummaries = posts.map(toBlogSummary);
   description="Paula Grangeiro writes about engineering leadership, team growth, and hands-on AI."
 >
   <div class="space-y-14" data-pagefind-ignore="all">
-    <section class="space-y-7">
-      <div class="flex flex-col items-start gap-6 sm:flex-row sm:gap-8">
-        <div
-          aria-hidden="true"
-          class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-hairline bg-sand font-editorial text-2xl font-bold text-terracotta sm:h-24 sm:w-24"
-        >
-          PG
+    <section aria-labelledby="home-heading" class="grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-12">
+      <div class="mx-auto w-44 overflow-hidden rounded-3xl border-4 border-paper shadow-lg ring-1 ring-hairline sm:w-56 md:mx-0 md:w-full">
+        <Image
+          alt="Paula Grangeiro, engineering leader and writer."
+          class="aspect-square w-full object-cover object-[center_38%]"
+          height={560}
+          loading="eager"
+          src={portrait}
+          width={560}
+        />
+      </div>
+      <div class="space-y-5">
+        <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-sand px-3 py-1 font-mono text-xs text-terracotta">
+          Engineering Leadership in the AI Era
         </div>
-        <div class="max-w-2xl space-y-3">
-          <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-sand px-3 py-1 font-mono text-xs text-terracotta">
-            Engineering Management in the AI Era
-          </div>
-          <h1 class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
-            Helping engineers grow into leadership & staying hands-on with AI.
-          </h1>
-          <p class="text-base leading-relaxed text-muted sm:text-lg">
-            I'm Paula Grangeiro—an Engineering Manager passionate about helping software engineers transition into high-impact leadership roles. I write about team growth, engineering management, and why staying hands-on with coding agents and system architecture makes stronger leaders.
-          </p>
+        <h1 class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl" id="home-heading">
+          Engineering leadership, still hands-on in the AI era.
+        </h1>
+        <p class="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          I'm Paula Grangeiro. I help engineers grow into high-impact leaders while building thoughtful AI tools and staying close to the code, architecture, and people behind great teams.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a
+            class="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-4 py-2.5 font-mono text-xs font-semibold text-paper shadow-xs transition-colors hover:bg-[#B24D28]"
+            href="#featured-heading"
+          >
+            Explore featured work <span aria-hidden="true">↓</span>
+          </a>
+          <button
+            class="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-paper px-4 py-2.5 font-mono text-xs font-semibold text-ink transition-colors hover:border-terracotta hover:text-terracotta"
+            data-contact-intent="hello"
+            data-open-contact
+            type="button"
+          >
+            Start a conversation <span aria-hidden="true">→</span>
+          </button>
         </div>
       </div>
     </section>
 
+    <section
+      aria-labelledby="workbench-heading"
+      class="overflow-hidden rounded-2xl border border-[#3D3A36] bg-ink p-6 text-paper shadow-md sm:p-8"
+    >
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-terracotta">
+            <span aria-hidden="true" class="h-2 w-2 rounded-full bg-terracotta"></span>
+            Live Workbench · Active build
+          </div>
+          <h2 class="font-editorial text-2xl font-bold sm:text-3xl" id="workbench-heading">
+            PR-Eval Harness <span class="font-mono text-base font-normal text-muted-light">v0.4</span>
+          </h2>
+          <p class="max-w-xl text-sm leading-relaxed text-muted-light">
+            Benchmarking AI-generated pull requests against repository architecture and team boundaries.
+          </p>
+        </div>
+        <div class="flex shrink-0 items-center gap-3 rounded-xl border border-[#3D3A36] bg-[#2A2825] px-4 py-3 sm:flex-col sm:items-start">
+          <span class="font-editorial text-3xl font-bold text-terracotta">94%</span>
+          <span class="max-w-36 font-mono text-[11px] leading-relaxed text-muted-light">
+            fewer architectural regressions
+          </span>
+        </div>
+      </div>
+      <a
+        class="mt-6 inline-flex items-center gap-2 rounded-lg bg-terracotta px-4 py-2.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-[#B24D28]"
+        href="/work/pr-eval-harness/"
+      >
+        Read the technical breakdown <span aria-hidden="true">→</span>
+      </a>
+    </section>
+
     <section aria-labelledby="featured-heading" class="space-y-6 border-t border-hairline pt-8">
-      <div class="flex items-end justify-between gap-4">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="font-editorial text-2xl font-bold text-ink" id="featured-heading">
-            Featured Work & Playbooks
+            Featured Work
           </h2>
-          <p class="mt-1 font-mono text-xs text-muted">Engineering notebook entries</p>
+          <p class="mt-1 font-mono text-xs text-muted">Flagship writing and hands-on AI builds</p>
         </div>
-        <a
-          class="inline-flex shrink-0 items-center gap-1 font-mono text-xs font-semibold text-terracotta hover:underline"
-          href="/work"
-        >
-          View all ({postSummaries.length})
-          <span aria-hidden="true">→</span>
-        </a>
       </div>
 
       <div class="divide-y divide-hairline border-y border-hairline">
         {featuredPosts.map((post) => <PostCard post={toBlogSummary(post)} />)}
+      </div>
+      <div class="flex justify-end">
+        <a
+          class="inline-flex items-center gap-1 font-mono text-xs font-semibold text-terracotta hover:underline"
+          href="/work/"
+        >
+          View all Work & Notes <span aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
   </div>

@@ -12,7 +12,6 @@ const postSummaries = getPageItems(posts, 1).map(toBlogSummary);
 <BaseLayout
   title="Work & Notes"
   description="A consolidated index of engineering leadership playbooks, AI prototypes, and architecture notes."
-  enableSearch
 >
   <WorkArchive posts={postSummaries} page={1} pageCount={pageCount} />
 </BaseLayout>

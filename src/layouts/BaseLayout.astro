@@ -9,10 +9,18 @@ interface Props {
   description: string;
   socialDescription?: string;
   ogType?: 'website' | 'article';
-  enableSearch?: boolean;
+  pagefindMeta?: {
+    summary: string;
+    tldr: string;
+    type: string;
+    category: string;
+    date: string;
+    readTime: string;
+    artifacts: string;
+  };
 }
 
-const { title, description, socialDescription, ogType, enableSearch = false } = Astro.props;
+const { title, description, socialDescription, ogType, pagefindMeta } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,10 +32,16 @@ const { title, description, socialDescription, ogType, enableSearch = false } = 
       socialDescription={socialDescription}
       ogType={ogType}
     />
-    {enableSearch && !import.meta.env.DEV && (
+    {pagefindMeta && (
       <>
-        <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
-        <script is:inline type="module" src="/pagefind/pagefind-component-ui.js"></script>
+        <meta data-pagefind-meta="summary[content]" content={pagefindMeta.summary} />
+        <meta data-pagefind-meta="tldr[content]" content={pagefindMeta.tldr} />
+        <meta data-pagefind-meta="type[content]" content={pagefindMeta.type} />
+        <meta data-pagefind-meta="category[content]" content={pagefindMeta.category} />
+        <meta data-pagefind-meta="date[content]" content={pagefindMeta.date} />
+        <meta data-pagefind-meta="readTime[content]" content={pagefindMeta.readTime} />
+        <meta data-pagefind-meta="artifacts[content]" content={pagefindMeta.artifacts} />
+        <meta data-pagefind-sort={`date:${pagefindMeta.date}`} />
       </>
     )}
   </head>

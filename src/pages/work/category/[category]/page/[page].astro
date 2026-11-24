@@ -41,7 +41,6 @@ const categoryLabel = BLOG_CATEGORIES.find((item) => item.id === category)?.labe
 <BaseLayout
   title={`${categoryLabel} — Page ${page}`}
   description={`Page ${page} of ${categoryLabel} posts.`}
-  enableSearch
 >
   <WorkArchive posts={posts} page={page} pageCount={pageCount} category={category} />
 </BaseLayout>

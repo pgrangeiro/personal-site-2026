@@ -25,7 +25,6 @@ const { posts, page, pageCount } = Astro.props;
 <BaseLayout
   title={`Work & Notes — Page ${page}`}
   description="Engineering leadership playbooks, AI prototypes, and architecture notes."
-  enableSearch
 >
   <WorkArchive posts={posts} page={page} pageCount={pageCount} />
 </BaseLayout>

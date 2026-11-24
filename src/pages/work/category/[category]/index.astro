@@ -30,6 +30,6 @@ const { posts, pageCount, category } = Astro.props as {
 const categoryLabel = BLOG_CATEGORIES.find((item) => item.id === category)?.label ?? 'Work & Notes';
 ---
 
-<BaseLayout title={categoryLabel} description={`All posts in ${categoryLabel}.`} enableSearch>
+<BaseLayout title={categoryLabel} description={`All posts in ${categoryLabel}.`}>
   <WorkArchive posts={posts} page={1} pageCount={pageCount} category={category} />
 </BaseLayout>

@@ -20,6 +20,15 @@ const tldrSummary = data.tldr.replace(/^TL;DR:\s*/i, '');
   description={data.description}
   socialDescription={tldrSummary}
   ogType="article"
+  pagefindMeta={{
+    summary: data.description,
+    tldr: tldrSummary,
+    type: data.type,
+    category: data.typeCategory,
+    date: data.pubDate.toISOString().slice(0, 10),
+    readTime: data.readTime,
+    artifacts: JSON.stringify(data.artifacts),
+  }}
 >
   <article class="space-y-8" data-pagefind-body>
     <a class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta" href="/work">
