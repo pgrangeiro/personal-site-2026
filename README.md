@@ -69,7 +69,7 @@ const postPublished = true;
 ```
 ````
 
-`typeCategory` must be `leadership`, `ai`, or `prototypes`. Required metadata is validated when the collection is built; a missing or invalid required field fails `pnpm build` with a content validation error. `artifacts` and `featured` have defaults. Each artifact requires a `label` and may include an HTTP(S) `url`, which is rendered as an external link. `hasInteractiveComponent` is optional; set it to `true` to include the interactive prompt demo after the post body. Fenced code is syntax-highlighted by Shiki on the site's dark code surface and includes a Copy button. Article link previews use the post title and TL;DR summary. The filename determines the URL; no page or index edits are needed to publish a new post.
+`typeCategory` must be `leadership`, `ai`, or `prototypes`. Required metadata is validated when the collection is built; a missing or invalid required field fails `pnpm build` with a content validation error. `artifacts` and `featured` have defaults. Each artifact requires a `label` and may include an HTTP(S) `url`, which is rendered as an external link. `hasInteractiveComponent` is optional; set it to `true` to include the interactive AI workflow viewer after the post body. The viewer switches between the human spec, production system prompt, and evaluation output/diff, and its Copy button copies the currently selected view. Fenced code is syntax-highlighted by Shiki on the site's dark code surface and includes a Copy button. Article link previews use the post title and TL;DR summary. The filename determines the URL; no page or index edits are needed to publish a new post.
 
 Before publishing, run the focused tests and production checks:
 
