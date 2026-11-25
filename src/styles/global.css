@@ -4,7 +4,8 @@
   --color-paper: #FAF8F5;
   --color-ink: #1F1E1C;
   --color-sand: #F2ECE1;
-  --color-terracotta: #C85A32;
+  --color-terracotta: #A74424;
+  --color-terracotta-on-dark: #F29A75;
   --color-hairline: #E6DFD3;
   --color-muted: #6E6A63;
   --color-muted-light: #A09B8F;
@@ -39,7 +40,7 @@ textarea:focus-visible {
 
 ::selection {
   background: #F2ECE1;
-  color: #C85A32;
+  color: var(--color-terracotta);
 }
 
 .article-body {
@@ -77,7 +78,7 @@ textarea:focus-visible {
 }
 
 .article-body li::marker {
-  color: #C85A32;
+  color: var(--color-terracotta);
 }
 
 .article-body blockquote {

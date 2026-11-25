@@ -35,7 +35,7 @@ const updatedMonth = new Intl.DateTimeFormat('en-US', {
 
         <section aria-labelledby="current-focus" class="space-y-4 rounded-2xl border border-[#333] bg-ink p-6 text-paper shadow-md">
           <div class="flex items-center justify-between gap-3 border-b border-[#333] pb-3">
-            <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-terracotta" id="current-focus">
+            <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-terracotta-on-dark" id="current-focus">
               Current Focus
             </h2>
             <time class="font-mono text-[10px] text-muted-light" datetime={currentFocus.updatedAt}>
@@ -44,15 +44,15 @@ const updatedMonth = new Intl.DateTimeFormat('en-US', {
           </div>
           <div class="grid gap-4 font-mono text-xs text-sand sm:grid-cols-2 sm:text-sm">
             <div class="space-y-1">
-              <h3 class="font-bold text-terracotta">Building with AI</h3>
+              <h3 class="font-bold text-terracotta-on-dark">Building with AI</h3>
               <p class="leading-relaxed text-muted-light">{currentFocus.buildingWithAI}</p>
             </div>
             <div class="space-y-1">
-              <h3 class="font-bold text-terracotta">Leading &amp; Mentoring</h3>
+              <h3 class="font-bold text-terracotta-on-dark">Leading &amp; Mentoring</h3>
               <p class="leading-relaxed text-muted-light">{currentFocus.leadingAndMentoring}</p>
             </div>
             <div class="space-y-1">
-              <h3 class="font-bold text-terracotta">Reading</h3>
+              <h3 class="font-bold text-terracotta-on-dark">Reading</h3>
               <ul class="space-y-1 text-muted-light">
                 {currentFocus.reading.map(({ title, note }) => (
                   <li>

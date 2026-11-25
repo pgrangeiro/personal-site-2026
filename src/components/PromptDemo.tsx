@@ -164,7 +164,7 @@ export default function PromptDemo() {
               aria-selected={isActive}
               className={`min-w-0 whitespace-normal break-words border-r border-[#3D3A36] px-1 py-3 text-center leading-tight transition-colors last:border-r-0 sm:px-2 ${
                 isActive
-                  ? 'border-b-2 border-b-terracotta bg-ink font-bold text-terracotta'
+                  ? 'border-b-2 border-b-terracotta bg-ink font-bold text-terracotta-on-dark'
                   : 'text-muted-light hover:text-paper'
               }`}
               id={`workflow-viewer-tab-${tab.id}`}
@@ -201,7 +201,7 @@ export default function PromptDemo() {
               {copyStatus}
             </span>
             <button
-              className="rounded border border-[#3D3A36] bg-[#2A2825] px-2.5 py-1.5 text-[11px] text-paper transition-colors hover:border-terracotta hover:text-terracotta"
+              className="rounded border border-[#3D3A36] bg-[#2A2825] px-2.5 py-1.5 text-[11px] text-paper transition-colors hover:border-terracotta hover:text-terracotta-on-dark"
               onClick={copyActiveView}
               type="button"
             >

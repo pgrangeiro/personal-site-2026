@@ -19,7 +19,7 @@ When engineers transition into management in 2026, autonomous AI agents are draf
 
 If engineering leaders don't stay hands-on with evaluation harnesses, they cannot evaluate whether software architecture is being guided by sound engineering or hallucinated agent shortcuts.
 
-### The Problem: Architectural Drift from Automated PRs
+## The Problem: Architectural Drift from Automated PRs
 
 Raw LLMs are fast at writing local function bodies, but notoriously prone to breaking **architectural isolation boundaries**—such as importing backend service logic into frontend components or violating linter contracts.
 

@@ -42,7 +42,7 @@ const filters = [
 
   <div class="space-y-6">
     <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-      <nav aria-label="Filter work by category" class="flex w-full min-w-0 items-center gap-2 overflow-x-auto pb-1 sm:w-auto">
+      <nav aria-label="Filter work by category" class="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
         {filters.map((filter) => (
           <a
             aria-current={(category ?? '') === filter.id ? 'page' : undefined}

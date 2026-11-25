@@ -125,6 +125,10 @@ describe('Work & Notes archive', () => {
       expect(archive.querySelector('[data-archive-results] div.pt-1')).toHaveTextContent(
         'Eval Metrics',
       );
+      expect(archive.querySelector('[aria-label="Read AI Agent Review"]')).toHaveAttribute(
+        'href',
+        '/work/ai-agent-review/',
+      );
       expect(window.location.search).toBe('?q=metrics');
     });
 

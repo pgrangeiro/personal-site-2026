@@ -182,7 +182,23 @@ function createPostCard(data: PagefindResultData): HTMLElement {
   artifactList.className = 'flex flex-wrap gap-2 pt-1';
   for (const artifact of artifacts) artifactList.append(createArtifactTag(artifact));
 
-  card.append(metadata, heading, summary, artifactList);
+  const cardFooter = document.createElement('div');
+  cardFooter.className = 'flex flex-wrap items-center justify-between gap-3 pt-1';
+  cardFooter.append(artifactList);
+
+  const readLink = document.createElement('a');
+  readLink.href = `${postUrl.pathname}${postUrl.search}${postUrl.hash}`;
+  readLink.setAttribute('aria-label', `Read ${title}`);
+  readLink.className =
+    'inline-flex shrink-0 items-center gap-1 font-mono text-xs font-semibold text-terracotta transition-colors hover:underline focus-visible:underline';
+  readLink.append(document.createTextNode('Read article '));
+  const arrow = document.createElement('span');
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.textContent = '→';
+  readLink.append(arrow);
+  cardFooter.append(readLink);
+
+  card.append(metadata, heading, summary, cardFooter);
   return card;
 }
 

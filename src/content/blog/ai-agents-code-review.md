@@ -17,7 +17,7 @@ Code review is often where team velocity goes to die. Between waiting for timezo
 
 Three months ago, we rolled out an experimental **Agentic Review Harness** across 4 platform squads. Here is what we learned about human-AI collaboration in critical codebases.
 
-### Architecture of an Agentic Review Pipeline
+## Architecture of an Agentic Review Pipeline
 
 Rather than throwing a single raw LLM prompt at a 500-line diff, we built a 3-tier pipeline using domain-specialized lightweight models:
 
