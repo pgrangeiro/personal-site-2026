@@ -3,7 +3,9 @@ title: "The First 90 Days Leading a Modern Platform Engineering Team"
 description: "A practical blueprint for newly appointed engineering managers to measure developer friction, build peer trust, and fix papercuts."
 pubDate: 2026-07-01
 type: "CAREER PLAYBOOK"
-typeCategory: leadership
+category:
+  id: leadership
+  label: Career Playbooks
 tldr: "TL;DR: Focus on measuring developer friction scores first before embarking on major infrastructure migrations."
 readTime: "6 min read"
 artifacts:

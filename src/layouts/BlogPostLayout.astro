@@ -18,11 +18,11 @@ const posts = await getBlogPosts();
 const relatedPosts = [
   ...posts.filter(
     (candidate) =>
-      candidate.id !== post.id && candidate.data.typeCategory === data.typeCategory,
+      candidate.id !== post.id && candidate.data.category.id === data.category.id,
   ),
   ...posts.filter(
     (candidate) =>
-      candidate.id !== post.id && candidate.data.typeCategory !== data.typeCategory,
+      candidate.id !== post.id && candidate.data.category.id !== data.category.id,
   ),
 ].slice(0, 3);
 ---
@@ -36,7 +36,8 @@ const relatedPosts = [
     summary: data.description,
     tldr: tldrSummary,
     type: data.type,
-    category: data.typeCategory,
+    category: data.category.id,
+    categoryLabel: data.category.label,
     date: data.pubDate.toISOString().slice(0, 10),
     readTime: data.readTime,
     artifacts: JSON.stringify(data.artifacts),
@@ -50,7 +51,7 @@ const relatedPosts = [
 
     <header class="space-y-5 border-b border-hairline pb-8">
       <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
-        <CategoryLink category={data.typeCategory} type={data.type} />
+        <CategoryLink category={data.category} type={data.type} />
         <span aria-hidden="true">·</span>
         <time datetime={data.pubDate.toISOString()}>{formatPublicationDate(data.pubDate)}</time>
         <span aria-hidden="true">·</span>

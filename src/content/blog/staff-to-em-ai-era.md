@@ -3,7 +3,9 @@ title: "From Staff Engineer to EM Without Losing Technical Edge in the AI Era"
 description: "Why traditional advice to put away your IDE fails modern leaders, and how to structure a weekly 10% technical allocation without blocking team output."
 pubDate: 2026-10-01
 type: "CAREER PLAYBOOK"
-typeCategory: leadership
+category:
+  id: leadership
+  label: Career Playbooks
 tldr: 'TL;DR: Traditional "hands-off" management advice is outdated. Modern EMs maintain tactical intuition by building internal dev tools.'
 readTime: "6 min read"
 artifacts:

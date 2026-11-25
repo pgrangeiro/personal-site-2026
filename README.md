@@ -63,7 +63,9 @@ title: "A useful title"
 description: "A short summary for listings and search engines."
 pubDate: 2026-11-23
 type: "CAREER PLAYBOOK"
-typeCategory: leadership
+category:
+  id: leadership
+  label: Career Playbooks
 tldr: "A concise takeaway for the post."
 readTime: "5 min read"
 artifacts:
@@ -80,7 +82,7 @@ const postPublished = true;
 ```
 ````
 
-`typeCategory` must be `leadership`, `ai`, or `prototypes`. Required metadata is validated when the collection is built; a missing or invalid required field fails `pnpm build` with a content validation error. `artifacts` and `featured` have defaults. Each artifact requires a `label` and may include an HTTP(S) `url`, which is rendered as an external link. `hasInteractiveComponent` is optional; set it to `true` to include the interactive AI workflow viewer after the post body. The viewer switches between the human spec, production system prompt, and evaluation output/diff, and its Copy button copies the currently selected view. Fenced code is syntax-highlighted by Shiki on the site's dark code surface and includes a Copy button. Article link previews use the post title and TL;DR summary. The filename determines the URL; no page or index edits are needed to publish a new post.
+`category.id` must be a lowercase kebab-case ID, and `category.label` is its display name. Categories are discovered from post frontmatter and populate the archive filters and static category pages; posts using the same ID must use the same label. Required metadata is validated when the collection is built; a missing or invalid required field fails `pnpm build` with a content validation error. `artifacts` and `featured` have defaults. Each artifact requires a `label` and may include an HTTP(S) `url`, which is rendered as an external link. `hasInteractiveComponent` is optional; set it to `true` to include the interactive AI workflow viewer after the post body. The viewer switches between the human spec, production system prompt, and evaluation output/diff, and its Copy button copies the currently selected view. Fenced code is syntax-highlighted by Shiki on the site's dark code surface and includes a Copy button. Article link previews use the post title and TL;DR summary. The filename determines the URL; no page or index edits are needed to publish a new post.
 
 Before publishing, run the focused tests and production checks:
 

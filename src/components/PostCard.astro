@@ -13,7 +13,7 @@ const { post } = Astro.props;
 <article class="group space-y-2 px-3 py-6 transition-colors hover:bg-sand/40">
   <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
     <div class="flex items-center gap-2">
-      <CategoryLink category={post.typeCategory} type={post.type} />
+      <CategoryLink category={post.category} type={post.type} />
       <span class="text-muted">{post.date}</span>
     </div>
     <span class="text-muted">{post.readTime}</span>

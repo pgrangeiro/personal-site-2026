@@ -1,26 +1,28 @@
 ---
-import { BLOG_CATEGORIES, type BlogCategory } from '../../../../../schemas/blog';
-import { getBlogPosts, toBlogSummary } from '../../../../../lib/blog';
+import type { BlogCategory } from '../../../../../schemas/blog';
+import { getBlogCategories, getBlogPosts, toBlogSummary } from '../../../../../lib/blog';
 import { getPaginatedPages } from '../../../../../lib/pagination';
 import WorkArchive from '../../../../../components/WorkArchive.astro';
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts();
+  const categories = getBlogCategories(posts);
   const paths = [];
 
-  for (const { id } of BLOG_CATEGORIES) {
-    const categoryPosts = posts.filter((post) => post.data.typeCategory === id);
+  for (const category of categories) {
+    const categoryPosts = posts.filter((post) => post.data.category.id === category.id);
     const pages = getPaginatedPages(categoryPosts);
 
     for (const { page, pageCount, items } of pages.slice(1)) {
       paths.push({
-        params: { category: id, page: String(page) },
+        params: { category: category.id, page: String(page) },
         props: {
           posts: items.map(toBlogSummary),
           page,
           pageCount,
-          category: id,
+          category,
+          categories,
         },
       });
     }
@@ -29,18 +31,18 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { posts, page, pageCount, category } = Astro.props as {
+const { posts, page, pageCount, category, categories } = Astro.props as {
   posts: ReturnType<typeof toBlogSummary>[];
   page: number;
   pageCount: number;
   category: BlogCategory;
+  categories: BlogCategory[];
 };
-const categoryLabel = BLOG_CATEGORIES.find((item) => item.id === category)?.label ?? 'Work & Notes';
 ---
 
 <BaseLayout
-  title={`${categoryLabel} — Page ${page}`}
-  description={`Page ${page} of ${categoryLabel} posts.`}
+  title={`${category.label} — Page ${page}`}
+  description={`Page ${page} of ${category.label} posts.`}
 >
-  <WorkArchive posts={posts} page={page} pageCount={pageCount} category={category} />
+  <WorkArchive categories={categories} posts={posts} page={page} pageCount={pageCount} category={category} />
 </BaseLayout>

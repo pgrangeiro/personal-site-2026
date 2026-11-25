@@ -3,7 +3,9 @@ title: "PR-Eval Harness v0.4: Benchmarking LLM Precision on Repo Diffs"
 description: "A complete architectural breakdown and open-source harness that evaluates whether automated coding agent PRs adhere to team boundary rules before human review."
 pubDate: 2026-11-01
 type: "PROTOTYPE & ARTICLE"
-typeCategory: prototypes
+category:
+  id: prototypes
+  label: Prototypes & Tools
 tldr: "TL;DR: How a 140-line AST + LLM evaluation pipeline reduced pull request architectural regressions by 94%."
 readTime: "7 min read"
 artifacts:

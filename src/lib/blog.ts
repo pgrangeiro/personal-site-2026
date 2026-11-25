@@ -3,6 +3,7 @@ import type { BlogSummary } from '../schemas/blog';
 import { formatPublicationDate } from './formatPublicationDate';
 
 export { formatPublicationDate } from './formatPublicationDate';
+export { getBlogCategories } from './blogCategories';
 
 export type BlogPost = CollectionEntry<'blog'>;
 
@@ -18,7 +19,7 @@ export function toBlogSummary(post: BlogPost): BlogSummary {
     slug: post.id,
     date: formatPublicationDate(data.pubDate),
     type: data.type,
-    typeCategory: data.typeCategory,
+    category: data.category,
     title: data.title,
     tldr: data.tldr,
     summary: data.description,

@@ -13,6 +13,9 @@ function createArchiveMarkup(): HTMLElement {
     <div data-work-archive data-default-category="" data-default-page="1">
       <a data-archive-filter="" href="/work/">All</a>
       <a data-archive-filter="leadership" href="/work/category/leadership/">Leadership &amp; Growth</a>
+      <a data-archive-filter="ai" href="/work/category/ai/">AI &amp; Systems</a>
+      <a data-archive-filter="prototypes" href="/work/category/prototypes/">Prototypes &amp; Tools</a>
+      <a data-archive-filter="platform-engineering" href="/work/category/platform-engineering/">Platform Engineering</a>
       <input data-archive-search />
       <p data-archive-status></p>
       <section data-archive-results></section>
@@ -58,6 +61,7 @@ function post(overrides: Record<string, string> = {}): Record<string, string> {
     title: 'Platform Leadership',
     type: 'CAREER PLAYBOOK',
     category: 'leadership',
+    categoryLabel: 'Career Playbooks',
     readTime: '5 min read',
     date: '2026-03-15',
     tldr: 'Build trust through clear ownership.',
@@ -131,11 +135,27 @@ describe('Work & Notes archive', () => {
       new URL('https://example.com/work/?category=ai&q=agents&page=3'),
       null,
       1,
+      new Set(['leadership', 'ai', 'prototypes', 'platform-engineering']),
     );
 
     expect(state).toEqual({ category: 'ai', query: 'agents', page: 3 });
     expect(getArchiveUrl(state)).toBe('/work/?category=ai&q=agents&page=3');
-    expect(readArchiveState(new URL('https://example.com/work/?category=unknown&page=-1'), null, 1))
+    expect(
+      readArchiveState(
+        new URL('https://example.com/work/?category=platform-engineering&page=-1'),
+        null,
+        1,
+        new Set(['platform-engineering']),
+      ),
+    ).toEqual({ category: 'platform-engineering', query: '', page: 1 });
+    expect(
+      readArchiveState(
+        new URL('https://example.com/work/?category=unknown&page=-1'),
+        null,
+        1,
+        new Set(['leadership', 'ai']),
+      ),
+    )
       .toEqual({ category: null, query: '', page: 1 });
   });
 
@@ -270,6 +290,35 @@ describe('Work & Notes archive', () => {
     await waitFor(() => {
       expect(archive.querySelectorAll('[data-archive-results] article')).toHaveLength(20);
       expect(window.location.pathname + window.location.search).toBe('/work/');
+    });
+  });
+
+  it('accepts a newly discovered category from the rendered filter links', async () => {
+    window.history.replaceState(null, '', '/work/');
+    const archive = createArchiveMarkup();
+    const api = createApi([
+      post({
+        title: 'Platform Engineering',
+        type: 'ARCHITECTURE',
+        category: 'platform-engineering',
+        categoryLabel: 'Platform Engineering',
+        slug: 'platform-engineering',
+      }),
+    ]);
+
+    await initializeWorkArchive(archive, async () => api);
+    fireEvent.click(archive.querySelector('[data-archive-filter="platform-engineering"]')!);
+
+    await waitFor(() => {
+      expect(api.search).toHaveBeenLastCalledWith(
+        null,
+        { filters: { category: 'platform-engineering' }, sort: { date: 'desc' } },
+      );
+      expect(
+        archive.querySelector(
+          '[data-archive-results] a[aria-label="View all Platform Engineering posts"]',
+        ),
+      ).toHaveAttribute('href', '/work/category/platform-engineering/');
     });
   });
 

@@ -1,10 +1,11 @@
 ---
 import WorkArchive from '../../components/WorkArchive.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getBlogPosts, toBlogSummary } from '../../lib/blog';
+import { getBlogCategories, getBlogPosts, toBlogSummary } from '../../lib/blog';
 import { getPageCount, getPageItems } from '../../lib/pagination';
 
 const posts = await getBlogPosts();
+const categories = getBlogCategories(posts);
 const pageCount = getPageCount(posts.length);
 const postSummaries = getPageItems(posts, 1).map(toBlogSummary);
 ---
@@ -13,5 +14,5 @@ const postSummaries = getPageItems(posts, 1).map(toBlogSummary);
   title="Work & Notes"
   description="A consolidated index of engineering leadership playbooks, AI prototypes, and architecture notes."
 >
-  <WorkArchive posts={postSummaries} page={1} pageCount={pageCount} />
+  <WorkArchive categories={categories} posts={postSummaries} page={1} pageCount={pageCount} />
 </BaseLayout>

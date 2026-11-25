@@ -1,38 +1,29 @@
 ---
-import {
-  BLOG_CATEGORIES,
-  type BlogCategory,
-  type BlogSummary,
-} from "../schemas/blog";
+import type { BlogCategory, BlogSummary } from "../schemas/blog";
 import Pagination from "./Pagination.astro";
 import PostCard from "./PostCard.astro";
 
 interface Props {
   posts: BlogSummary[];
+  categories: BlogCategory[];
   page: number;
   pageCount: number;
   category?: BlogCategory;
 }
 
 const { posts, page, pageCount, category } = Astro.props;
-const basePath = category ? `/work/category/${category}` : "/work";
+const { categories } = Astro.props;
+const basePath = category ? `/work/category/${category.id}` : "/work";
 const title = category
-  ? (BLOG_CATEGORIES.find((item) => item.id === category)?.label ??
-    "Work & Notes")
+  ? category.label
   : "Work, Playbooks & Notes";
-const filters = [
-  { id: "", label: "All" },
-  { id: "leadership", label: "Leadership & Growth" },
-  { id: "ai", label: "Hands-On & AI" },
-  { id: "prototypes", label: "Prototypes" },
-] as const;
 ---
 
 <div
   class="space-y-8"
   data-pagefind-ignore="all"
   data-work-archive
-  data-default-category={category ?? ""}
+  data-default-category={category?.id ?? ""}
   data-default-page={page}
 >
   <header class="space-y-3 border-b border-hairline pb-6">
@@ -54,12 +45,15 @@ const filters = [
         aria-label="Filter work by category"
         class="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap"
       >
-        {filters.map((filter) => (
+        {[
+          { id: "", label: "All" },
+          ...categories.map(({ id, label }) => ({ id, label })),
+        ].map((filter) => (
           <a
-            aria-current={(category ?? "") === filter.id ? "page" : undefined}
+            aria-current={(category?.id ?? "") === filter.id ? "page" : undefined}
             class:list={[
               "whitespace-nowrap rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors",
-              (category ?? "") === filter.id
+              (category?.id ?? "") === filter.id
                 ? "border-terracotta bg-terracotta font-bold text-white"
                 : "border-hairline bg-sand text-muted hover:border-terracotta hover:text-ink",
             ]}

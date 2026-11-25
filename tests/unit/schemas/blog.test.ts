@@ -6,7 +6,7 @@ const validPost = {
   description: 'A short description.',
   pubDate: '2026-11-23',
   type: 'CAREER PLAYBOOK',
-  typeCategory: 'leadership',
+  category: { id: 'leadership', label: 'Career Playbooks' },
   tldr: 'A concise takeaway.',
   readTime: '5 min read',
 };
@@ -45,6 +45,21 @@ describe('blog post metadata schema', () => {
       blogSchema.safeParse({
         ...validPost,
         artifacts: [{ label: '' }],
+      }).success,
+    ).toBe(false);
+  });
+
+  it('requires a lowercase kebab-case category ID and a non-empty label', () => {
+    expect(
+      blogSchema.safeParse({
+        ...validPost,
+        category: { id: 'Platform Engineering', label: 'Platform Engineering' },
+      }).success,
+    ).toBe(false);
+    expect(
+      blogSchema.safeParse({
+        ...validPost,
+        category: { id: 'platform-engineering', label: '' },
       }).success,
     ).toBe(false);
   });

@@ -1,15 +1,11 @@
 import { z } from 'astro/zod';
 
-export const BLOG_CATEGORY_IDS = ['leadership', 'ai', 'prototypes'] as const;
-
-export const BLOG_CATEGORIES = [
-  { id: 'leadership', label: 'Career Playbooks' },
-  { id: 'ai', label: 'AI & Systems' },
-  { id: 'prototypes', label: 'Prototypes & Tools' },
-] as const satisfies readonly {
-  id: (typeof BLOG_CATEGORY_IDS)[number];
-  label: string;
-}[];
+const blogCategorySchema = z.object({
+  id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+    message: 'Category IDs must be lowercase kebab-case.',
+  }),
+  label: z.string().min(1),
+});
 
 const artifactSchema = z.object({
   label: z.string().min(1),
@@ -26,7 +22,7 @@ export const blogSchema = z.object({
   description: z.string().min(1),
   pubDate: z.coerce.date(),
   type: z.string().min(1),
-  typeCategory: z.enum(BLOG_CATEGORY_IDS),
+  category: blogCategorySchema,
   tldr: z.string().min(1),
   readTime: z.string().min(1),
   artifacts: z.array(artifactSchema).default([]),
@@ -35,11 +31,11 @@ export const blogSchema = z.object({
 });
 
 export type BlogData = z.infer<typeof blogSchema>;
-export type BlogCategory = BlogData['typeCategory'];
+export type BlogCategory = BlogData['category'];
 
 export type BlogSummary = Pick<
   BlogData,
-  'type' | 'typeCategory' | 'title' | 'tldr' | 'readTime' | 'artifacts' | 'featured'
+  'type' | 'category' | 'title' | 'tldr' | 'readTime' | 'artifacts' | 'featured'
 > & {
   slug: string;
   date: string;

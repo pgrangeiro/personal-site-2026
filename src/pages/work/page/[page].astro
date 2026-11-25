@@ -1,17 +1,19 @@
 ---
-import { getBlogPosts, toBlogSummary } from '../../../lib/blog';
+import { getBlogCategories, getBlogPosts, toBlogSummary } from '../../../lib/blog';
 import { getPaginatedPages } from '../../../lib/pagination';
 import WorkArchive from '../../../components/WorkArchive.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts();
+  const categories = getBlogCategories(posts);
 
   return getPaginatedPages(posts).slice(1).map(({ page, pageCount, items }) => {
     return {
       params: { page: String(page) },
       props: {
         posts: items.map(toBlogSummary),
+        categories,
         page,
         pageCount,
       },
@@ -19,12 +21,12 @@ export async function getStaticPaths() {
   });
 }
 
-const { posts, page, pageCount } = Astro.props;
+const { posts, categories, page, pageCount } = Astro.props;
 ---
 
 <BaseLayout
   title={`Work & Notes — Page ${page}`}
   description="Engineering leadership playbooks, AI prototypes, and architecture notes."
 >
-  <WorkArchive posts={posts} page={page} pageCount={pageCount} />
+  <WorkArchive categories={categories} posts={posts} page={page} pageCount={pageCount} />
 </BaseLayout>

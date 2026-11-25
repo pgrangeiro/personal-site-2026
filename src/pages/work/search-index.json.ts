@@ -9,7 +9,8 @@ export const GET: APIRoute = async () => {
     meta: {
       title: data.title,
       type: data.type,
-      category: data.typeCategory,
+      category: data.category.id,
+      categoryLabel: data.category.label,
       readTime: data.readTime,
       date: data.pubDate.toISOString().slice(0, 10),
       tldr: data.tldr.replace(/^TL;DR:\s*/i, ''),

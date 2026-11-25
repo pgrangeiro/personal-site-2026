@@ -3,7 +3,9 @@ title: "Multi-Agent Triage Pipeline for Code Reviews: Field Notes from 4 Squads"
 description: "A step-by-step breakdown of our domain-specialized agentic review pipeline, highlighting psychological safety benefits for junior engineers."
 pubDate: 2026-09-01
 type: ARCHITECTURE
-typeCategory: ai
+category:
+  id: ai
+  label: "AI & Systems"
 tldr: "TL;DR: A 3-tier review pipeline that saved 14 hours per engineer per week while maintaining high security standards."
 readTime: "8 min read"
 artifacts:

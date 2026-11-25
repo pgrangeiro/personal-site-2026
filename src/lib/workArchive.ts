@@ -1,9 +1,7 @@
-import { BLOG_CATEGORY_IDS, type BlogCategory } from '../schemas/blog';
-
 const PAGE_SIZE = 20;
 
 export interface ArchiveState {
-  category: BlogCategory | null;
+  category: string | null;
   query: string;
   page: number;
 }
@@ -26,7 +24,7 @@ export interface PagefindArchiveApi {
   search(
     query: string | null,
     options: {
-      filters?: { category: BlogCategory };
+      filters?: { category: string };
       sort: { date: 'desc' };
     },
   ): Promise<PagefindSearchResponse>;
@@ -37,22 +35,19 @@ type Artifact = {
   url?: string;
 };
 
-const categoryLabels: Record<BlogCategory, string> = {
-  leadership: 'Leadership & Growth',
-  ai: 'Hands-On & AI',
-  prototypes: 'Prototypes',
-};
-
 export function readArchiveState(
   url: URL,
-  defaultCategory: BlogCategory | null,
+  defaultCategory: string | null,
   defaultPage: number,
+  categoryIds: ReadonlySet<string>,
 ): ArchiveState {
   const categoryParam = url.searchParams.get('category');
-  const category = BLOG_CATEGORY_IDS.includes(categoryParam as BlogCategory)
-    ? (categoryParam as BlogCategory)
+  const category = categoryParam && categoryIds.has(categoryParam)
+    ? categoryParam
     : categoryParam === null
-      ? defaultCategory
+      ? defaultCategory && categoryIds.has(defaultCategory)
+        ? defaultCategory
+        : null
       : null;
   const pageParam = Number(url.searchParams.get('page'));
 
@@ -174,9 +169,7 @@ function createPostCard(data: PagefindResultData): HTMLElement {
   const title = getMetadataValue(data.meta, 'title');
   const type = getMetadataValue(data.meta, 'type');
   const category = getMetadataValue(data.meta, 'category');
-  if (!BLOG_CATEGORY_IDS.includes(category as BlogCategory)) {
-    throw new Error(`The search index contains an unknown category "${category}".`);
-  }
+  const categoryLabel = getMetadataValue(data.meta, 'categoryLabel');
   const readTime = getMetadataValue(data.meta, 'readTime');
   const date = formatDate(getMetadataValue(data.meta, 'date'));
   const tldr = getMetadataValue(data.meta, 'tldr');
@@ -197,7 +190,7 @@ function createPostCard(data: PagefindResultData): HTMLElement {
   categoryLink.className =
     'rounded border border-hairline bg-sand px-2 py-0.5 font-bold text-terracotta transition-colors hover:border-terracotta hover:underline focus-visible:underline';
   categoryLink.href = `/work/category/${category}/`;
-  categoryLink.setAttribute('aria-label', `View all ${categoryLabels[category as BlogCategory]} posts`);
+  categoryLink.setAttribute('aria-label', `View all ${categoryLabel} posts`);
   categoryLink.textContent = type;
   const dateLabel = document.createElement('span');
   dateLabel.className = 'text-muted';
@@ -314,16 +307,22 @@ export async function initializeWorkArchive(
     '[data-archive-reset]',
   );
   const filterLinks = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-archive-filter]'));
+  const categoryIds = new Set(
+    filterLinks
+      .map((link) => link.dataset.archiveFilter ?? '')
+      .filter(Boolean),
+  );
 
   const defaultCategoryValue = root.dataset.defaultCategory ?? '';
-  const defaultCategory = BLOG_CATEGORY_IDS.includes(defaultCategoryValue as BlogCategory)
-    ? (defaultCategoryValue as BlogCategory)
+  const defaultCategory = categoryIds.has(defaultCategoryValue)
+    ? defaultCategoryValue
     : null;
   const defaultPage = Number(root.dataset.defaultPage);
   let state = readArchiveState(
     new URL(window.location.href),
     defaultCategory,
     Number.isSafeInteger(defaultPage) && defaultPage > 0 ? defaultPage : 1,
+    categoryIds,
   );
   let requestId = 0;
   let api: PagefindArchiveApi;
@@ -400,9 +399,7 @@ export async function initializeWorkArchive(
       event.preventDefault();
       const category = link.dataset.archiveFilter ?? '';
       state = {
-        category: BLOG_CATEGORY_IDS.includes(category as BlogCategory)
-          ? (category as BlogCategory)
-          : null,
+        category: categoryIds.has(category) ? category : null,
         query: state.query,
         page: 1,
       };
@@ -439,7 +436,12 @@ export async function initializeWorkArchive(
   });
 
   window.addEventListener('popstate', () => {
-    state = readArchiveState(new URL(window.location.href), defaultCategory, defaultPage);
+    state = readArchiveState(
+      new URL(window.location.href),
+      defaultCategory,
+      defaultPage,
+      categoryIds,
+    );
     updateControls();
     void renderResults().catch(showError);
   });

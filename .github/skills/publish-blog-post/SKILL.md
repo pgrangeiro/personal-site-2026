@@ -11,7 +11,7 @@ Use this skill when adding a new article or project write-up to `src/content/blo
 
 1. Choose a lowercase kebab-case filename. It becomes the route at `/work/<filename>/`.
 2. Write a Markdown file with the required frontmatter below. Do not use MDX.
-3. Use a valid `typeCategory`: `leadership`, `ai`, or `prototypes`.
+3. Add a category object with a lowercase kebab-case ID and readable display label. Reuse the same label whenever a post uses an existing category ID.
 4. Add artifacts as objects with a non-empty `label`. Add an absolute `http://` or `https://` `url` only when there is a real destination; label-only artifacts are supported.
 5. Write the article body in Markdown. Use fenced code blocks with a language identifier for syntax highlighting.
 
@@ -21,7 +21,9 @@ title: "A useful title"
 description: "A short summary for listings and search engines."
 pubDate: 2026-11-23
 type: "CAREER PLAYBOOK"
-typeCategory: leadership
+category:
+  id: leadership
+  label: Career Playbooks
 tldr: "A concise takeaway for the post."
 readTime: "5 min read"
 artifacts:
@@ -38,7 +40,7 @@ const postPublished = true;
 ```
 ````
 
-Required metadata includes `title`, `description`, `pubDate`, `type`, `typeCategory`, `tldr`, and `readTime`. The Astro content schema validates it during the build; invalid or missing required values fail the build. `artifacts`, `featured`, and `hasInteractiveComponent` are optional. Setting `hasInteractiveComponent: true` renders the interactive prompt demo after the article.
+Required metadata includes `title`, `description`, `pubDate`, `type`, `category` (`id` and `label`), `tldr`, and `readTime`. The Astro content schema validates it during the build; invalid or missing required values fail the build. Category filters and static category routes are generated from category metadata in published posts. A category ID cannot be paired with multiple labels. `artifacts`, `featured`, and `hasInteractiveComponent` are optional. Setting `hasInteractiveComponent: true` renders the interactive prompt demo after the article.
 
 ## Verify before publishing
 
