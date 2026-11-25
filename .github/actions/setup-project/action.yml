@@ -1,12 +1,9 @@
 name: Set up project
-description: Check out the repository, install pnpm and Node.js, and install dependencies.
+description: Install pnpm and Node.js, and install project dependencies.
 
 runs:
   using: composite
   steps:
-    - name: Check out repository
-      uses: actions/checkout@v4
-
     - name: Set up pnpm
       uses: pnpm/action-setup@v4
       with:

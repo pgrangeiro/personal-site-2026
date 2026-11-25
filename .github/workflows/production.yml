@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Set up project
         uses: ./.github/actions/setup-project
 
@@ -23,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Set up project
         uses: ./.github/actions/setup-project
 
