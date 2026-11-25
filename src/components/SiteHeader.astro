@@ -1,6 +1,4 @@
 ---
-import ContactExperience from './ContactExperience';
-
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
 const isWork = pathname === '/work' || pathname.startsWith('/work/');
@@ -49,7 +47,6 @@ const inactiveNavLinkClass = 'text-muted hover:text-ink';
       >
         About
       </a>
-      <ContactExperience client:load />
     </nav>
   </div>
 </header>

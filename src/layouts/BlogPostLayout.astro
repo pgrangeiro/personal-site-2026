@@ -67,34 +67,6 @@ const tldrSummary = data.tldr.replace(/^TL;DR:\s*/i, '');
 
     {data.hasInteractiveComponent && <PromptDemo client:visible />}
 
-    <section class="mt-12 space-y-4 rounded-2xl bg-ink p-6 text-paper shadow-md sm:p-8">
-      <p class="font-mono text-xs text-terracotta">CONTEXTUAL COFFEE CHAT</p>
-      <h2 class="font-editorial text-2xl font-bold">
-        Navigating team leadership or AI agent adoption?
-      </h2>
-      <p class="max-w-xl text-sm leading-relaxed text-muted-light">
-        I regularly chat with senior engineers transitioning into management and teams evaluating AI developer tools. Choose a topic to start a conversation.
-      </p>
-      <div class="flex flex-wrap gap-3 pt-2">
-        <button
-          class="inline-flex items-center gap-1.5 rounded-lg bg-terracotta px-4 py-2.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-[#B24D28]"
-          data-contact-intent="leadership"
-          data-open-contact
-          type="button"
-        >
-          Ask a leadership question <span aria-hidden="true">→</span>
-        </button>
-        <button
-          class="inline-flex items-center gap-1.5 rounded-lg border border-[#3D3A36] bg-[#2A2825] px-4 py-2.5 font-mono text-xs text-white transition-colors hover:bg-[#3D3A36]"
-          data-contact-intent="ai-workflows"
-          data-open-contact
-          type="button"
-        >
-          Compare AI workflows <span aria-hidden="true">→</span>
-        </button>
-      </div>
-    </section>
-
     <a
       class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-terracotta"
       href="/work"

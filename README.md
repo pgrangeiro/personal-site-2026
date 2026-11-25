@@ -1,6 +1,6 @@
 # Paula Grangeiro — Personal Site
 
-Personal site built with Astro, React, TypeScript, and Tailwind CSS. Astro renders pages as static HTML; React is hydrated only for the interactive work index, prompt demo, and contact dialog.
+Personal site built with Astro, React, TypeScript, and Tailwind CSS. Astro renders pages as static HTML; React is hydrated only for the interactive work index and prompt demo.
 
 ## Requirements
 
@@ -96,7 +96,3 @@ Edit `src/data/currentFocus.ts` to update the About page's refresh date, current
 3. Set the production branch to `main` and enable Vercel Git deployments. Commits pushed to `main` are then production deployments; branches and pull requests receive preview deployments.
 
 The repository is configured for a static Astro build; the Vercel project/Git connection must be authorized in your Vercel account before pushes can deploy.
-
-## Contact form
-
-The Coffee Chat dialog offers leadership, AI workflow, and general conversation prompts with inline name, email, and message validation. Email delivery is not configured: submitting a valid form does not send or store the message and clearly says so. The dialog offers a prefilled `mailto:` link to open the visitor's email app; a message is only sent if the visitor completes sending it there.
