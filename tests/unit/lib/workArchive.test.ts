@@ -6,7 +6,7 @@ import {
   initializeWorkArchive,
   readArchiveState,
   type PagefindArchiveApi,
-} from './workArchive';
+} from '../../../src/lib/workArchive';
 
 function createArchiveMarkup(): HTMLElement {
   document.body.innerHTML = `

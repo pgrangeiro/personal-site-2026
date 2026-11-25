@@ -40,6 +40,17 @@ The generated site and search index are written to `dist/`. Preview that build l
 pnpm preview
 ```
 
+## End-to-end tests
+
+Install Playwright's Chromium browser once, then run the E2E suite:
+
+```sh
+pnpm exec playwright install chromium
+pnpm run test:e2e
+```
+
+The suite starts the Astro development server when needed and runs the design checks at desktop and mobile Chromium viewport sizes.
+
 ## Publishing a blog post
 
 Create a Markdown file in `src/content/blog/`, using the filename as the post URL slug (for example, `my-new-post.md` becomes `/work/my-new-post/`). Astro validates each post's frontmatter against the blog collection schema and automatically includes it in the static article route, work archive, category archive, and Pagefind search index.

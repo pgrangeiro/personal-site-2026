@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPageCount, getPageItems, getPaginatedPages } from './pagination';
+import { getPageCount, getPageItems, getPaginatedPages } from '../../../src/lib/pagination';
 
 describe('static archive pagination', () => {
   it('splits a large collection into stable, non-overlapping pages', () => {

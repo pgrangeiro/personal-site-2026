@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { addCodeCopyButtons, type ClipboardWriter } from './codeBlockCopy';
+import { addCodeCopyButtons, type ClipboardWriter } from '../../../src/lib/codeBlockCopy';
 
 afterEach(() => {
   document.body.innerHTML = '';

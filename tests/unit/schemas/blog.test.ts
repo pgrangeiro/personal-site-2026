@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blogSchema } from './blog';
+import { blogSchema } from '../../../src/schemas/blog';
 
 const validPost = {
   title: 'A practical post',

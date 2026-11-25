@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createAtomFeed, type AtomFeedPost } from './atomFeed';
+import { createAtomFeed, type AtomFeedPost } from '../../../src/lib/atomFeed';
 
 const site = new URL('https://www.paulagrangeiro.com.br/');
 
