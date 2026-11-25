@@ -14,6 +14,9 @@ importers:
       astro:
         specifier: ^7.4.13
         version: 7.4.13(jiti@2.7.0)(yaml@2.9.1)
+      bootstrap-icons:
+        specifier: ^1.13.2
+        version: 1.13.2
       feed:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1170,6 +1173,9 @@ packages:
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
+
+  bootstrap-icons@1.13.2:
+    resolution: {integrity: sha512-fAU1Ly3dH7hwRg+CB8EZ0Vl0fF80zgXHeUVJyfUOKzoURr+TbwISbCW5tKUoQLERaWYG2emTCybcPbD96hdD1A==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -3375,6 +3381,8 @@ snapshots:
   bail@2.0.2: {}
 
   boolbase@1.0.0: {}
+
+  bootstrap-icons@1.13.2: {}
 
   ccount@2.0.1: {}
 
