@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CategoryLink from '../components/CategoryLink.astro';
-import PostCard from '../components/PostCard.astro';
-import { getBlogPosts, toBlogSummary } from '../lib/blog';
-import portrait from '../assets/paula-grangeiro.jpeg';
+import { Image } from "astro:assets";
+import portrait from "../assets/paula-grangeiro.jpeg";
+import CategoryLink from "../components/CategoryLink.astro";
+import PostCard from "../components/PostCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getBlogPosts, toBlogSummary } from "../lib/blog";
 
 const posts = await getBlogPosts();
 const featuredPosts = posts.filter((post) => post.data.featured).slice(0, 4);
@@ -18,7 +18,10 @@ const otherFeaturedPosts = featuredPosts.slice(1);
   description="Paula Grangeiro writes about engineering leadership, team growth, and hands-on AI."
 >
   <div class="space-y-14" data-pagefind-ignore="all">
-    <section aria-labelledby="home-heading" class="grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-12">
+    <section
+      aria-labelledby="home-heading"
+      class="grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-12"
+    >
       <div class="mx-auto w-44 overflow-hidden rounded-3xl border-4 border-paper shadow-lg ring-1 ring-hairline sm:w-56 md:mx-0 md:w-full">
         <Image
           alt="Paula Grangeiro, engineering leader and writer."
@@ -33,11 +36,16 @@ const otherFeaturedPosts = featuredPosts.slice(1);
         <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-sand px-3 py-1 font-mono text-xs text-terracotta">
           Engineering Leadership in the AI Era
         </div>
-        <h1 class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl" id="home-heading">
+        <h1
+          class="font-editorial text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl"
+          id="home-heading"
+        >
           Engineering leadership, still hands-on in the AI era.
         </h1>
         <p class="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          I'm Paula Grangeiro. I help engineers grow into high-impact leaders while building thoughtful AI tools and staying close to the code, architecture, and people behind great teams.
+          I'm Paula Grangeiro. I help engineers grow into high-impact leaders
+          while building thoughtful tools and staying close to the code,
+          architecture, and people behind great teams.
         </p>
         <div class="pt-1">
           <a
@@ -50,13 +58,21 @@ const otherFeaturedPosts = featuredPosts.slice(1);
       </div>
     </section>
 
-    <section aria-labelledby="featured-heading" class="space-y-6 border-t border-hairline pt-8">
+    <section
+      aria-labelledby="featured-heading"
+      class="space-y-6 border-t border-hairline pt-8"
+    >
       <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 class="font-editorial text-2xl font-bold text-ink" id="featured-heading">
+          <h2
+            class="font-editorial text-2xl font-bold text-ink"
+            id="featured-heading"
+          >
             Featured Work
           </h2>
-          <p class="mt-1 font-mono text-xs text-muted">Flagship writing and hands-on AI builds</p>
+          <p class="mt-1 font-mono text-xs text-muted">
+            Flagship writing and hands-on builds
+          </p>
         </div>
       </div>
 
@@ -65,8 +81,13 @@ const otherFeaturedPosts = featuredPosts.slice(1);
           <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div class="space-y-3">
               <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-muted-light">
-                <CategoryLink category={spotlight.typeCategory} type={spotlight.type} />
-                <time datetime={spotlightPost.data.pubDate.toISOString()}>{spotlight.date}</time>
+                <CategoryLink
+                  category={spotlight.typeCategory}
+                  type={spotlight.type}
+                />
+                <time datetime={spotlightPost.data.pubDate.toISOString()}>
+                  {spotlight.date}
+                </time>
               </div>
               <h3 class="font-editorial text-2xl font-bold sm:text-3xl">
                 {spotlight.title}
@@ -79,7 +100,9 @@ const otherFeaturedPosts = featuredPosts.slice(1);
               <span class="font-editorial text-2xl font-bold text-terracotta-on-dark">
                 {spotlight.readTime}
               </span>
-              <span class="font-mono text-[11px] text-muted-light">reading time</span>
+              <span class="font-mono text-[11px] text-muted-light">
+                reading time
+              </span>
             </div>
           </div>
           <a
@@ -93,7 +116,9 @@ const otherFeaturedPosts = featuredPosts.slice(1);
 
       {otherFeaturedPosts.length > 0 && (
         <div class="divide-y divide-hairline border-y border-hairline">
-          {otherFeaturedPosts.map((post) => <PostCard post={toBlogSummary(post)} />)}
+          {otherFeaturedPosts.map((post) => (
+            <PostCard post={toBlogSummary(post)} />
+          ))}
         </div>
       )}
       <div class="flex justify-end">

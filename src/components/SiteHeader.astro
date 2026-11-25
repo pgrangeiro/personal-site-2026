@@ -1,26 +1,32 @@
 ---
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/';
-const isWork = pathname === '/work' || pathname.startsWith('/work/');
-const isAbout = pathname === '/about' || pathname === '/about/';
+const isHome = pathname === "/";
+const isWork = pathname === "/work" || pathname.startsWith("/work/");
+const isAbout = pathname === "/about" || pathname === "/about/";
 const navLinkClass =
-  'rounded-lg px-2 py-1.5 font-mono text-xs transition-all sm:px-3 sm:text-sm';
-const activeNavLinkClass = 'border border-hairline bg-sand font-semibold text-terracotta';
-const inactiveNavLinkClass = 'text-muted hover:text-ink';
+  "rounded-lg px-2 py-1.5 font-mono text-xs transition-all sm:px-3 sm:text-sm";
+const activeNavLinkClass =
+  "border border-hairline bg-sand font-semibold text-terracotta";
+const inactiveNavLinkClass = "text-muted hover:text-ink";
 ---
 
 <div class="border-b border-[#333] bg-ink px-4 py-2 font-mono text-[11px] text-paper">
   <div class="mx-auto flex max-w-4xl items-center gap-2">
-    <span aria-hidden="true" class="inline-block h-2 w-2 rounded-full bg-terracotta"></span>
-    <span class="sm:hidden">Leadership, teams &amp; AI</span>
-    <span class="hidden sm:inline">Engineering management, team growth, and hands-on AI</span>
+    <span
+      aria-hidden="true"
+      class="inline-block h-2 w-2 rounded-full bg-terracotta"
+    ></span>
+    <span class="sm:hidden">Leadership, teams &amp; software engineering</span>
+    <span class="hidden sm:inline">
+      Engineering management, team growth, and hands-on software engineering
+    </span>
   </div>
 </div>
 
 <header class="sticky top-0 z-40 border-b border-hairline bg-paper/90 backdrop-blur-md transition-all">
   <div class="mx-auto flex min-h-20 max-w-4xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:flex-nowrap sm:px-6 sm:py-0">
     <a
-      aria-current={isHome ? 'page' : undefined}
+      aria-current={isHome ? "page" : undefined}
       aria-label="Paula Grangeiro — Home"
       class="group shrink-0 text-left"
       href="/"
@@ -29,20 +35,23 @@ const inactiveNavLinkClass = 'text-muted hover:text-ink';
         Paula Grangeiro
       </span>
       <span class="block font-mono text-xs text-muted">
-        Engineering Manager & Hands-On Leader
+        Engineering Manager & Hands-On Software Engineer
       </span>
     </a>
 
-    <nav aria-label="Main navigation" class="flex w-full items-center justify-between gap-3 sm:w-auto sm:gap-4">
+    <nav
+      aria-label="Main navigation"
+      class="flex w-full items-center justify-between gap-3 sm:w-auto sm:gap-4"
+    >
       <a
-        aria-current={isWork ? 'page' : undefined}
+        aria-current={isWork ? "page" : undefined}
         class={`${navLinkClass} ${isWork ? activeNavLinkClass : inactiveNavLinkClass}`}
         href="/work"
       >
         Work & Notes
       </a>
       <a
-        aria-current={isAbout ? 'page' : undefined}
+        aria-current={isAbout ? "page" : undefined}
         class={`${navLinkClass} ${isAbout ? activeNavLinkClass : inactiveNavLinkClass}`}
         href="/about"
       >

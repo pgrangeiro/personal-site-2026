@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { currentFocus } from '../data/currentFocus';
+import { currentFocus } from "../data/currentFocus";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const updatedDate = new Date(`${currentFocus.updatedAt}T00:00:00Z`);
-const updatedMonth = new Intl.DateTimeFormat('en-US', {
-  month: 'long',
-  year: 'numeric',
-  timeZone: 'UTC',
+const updatedMonth = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
 }).format(updatedDate);
 ---
 
@@ -20,43 +20,64 @@ const updatedMonth = new Intl.DateTimeFormat('en-US', {
         BIOGRAPHY & PHILOSOPHY
       </span>
       <h1 class="max-w-3xl font-editorial text-3xl font-bold text-ink sm:text-4xl">
-        From Senior Software Engineer to Hands-On Engineering Manager
+        From Software Engineer to hands-on Engineering Manager
       </h1>
     </header>
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       <div class="space-y-6 text-base leading-relaxed text-ink md:col-span-2">
         <p>
-          Over the last decade, I've journeyed from building distributed systems and backend software as a Senior IC to guiding engineering teams as an Engineering Manager.
+          Over the last decade, I've journeyed from building distributed systems
+          and backend software as an IC to guiding engineering teams as an
+          Engineering Manager.
         </p>
         <p>
-          I believe the most effective engineering managers in the AI era maintain deep technical empathy. When coding agents accelerate implementation, engineering leadership isn't about managing backlog status—it's about mentoring engineers, setting architectural standards, and fostering team psychological safety.
+          I believe the most effective engineering managers in the AI era
+          maintain deep technical empathy. When coding agents accelerate
+          implementation, engineering leadership isn't about managing backlog
+          status - it's about mentoring engineers, setting architectural
+          standards, and fostering team psychological safety.
         </p>
 
-        <section aria-labelledby="current-focus" class="space-y-4 rounded-2xl border border-[#333] bg-ink p-6 text-paper shadow-md">
+        <section
+          aria-labelledby="current-focus"
+          class="space-y-4 rounded-2xl border border-[#333] bg-ink p-6 text-paper shadow-md"
+        >
           <div class="flex items-center justify-between gap-3 border-b border-[#333] pb-3">
-            <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-terracotta-on-dark" id="current-focus">
+            <h2
+              class="font-mono text-xs font-bold uppercase tracking-wider text-terracotta-on-dark"
+              id="current-focus"
+            >
               Current Focus
             </h2>
-            <time class="font-mono text-[10px] text-muted-light" datetime={currentFocus.updatedAt}>
+            <time
+              class="font-mono text-[10px] text-muted-light"
+              datetime={currentFocus.updatedAt}
+            >
               Updated {updatedMonth}
             </time>
           </div>
           <div class="grid gap-4 font-mono text-xs text-sand sm:grid-cols-2 sm:text-sm">
             <div class="space-y-1">
-              <h3 class="font-bold text-terracotta-on-dark">Building with AI</h3>
-              <p class="leading-relaxed text-muted-light">{currentFocus.buildingWithAI}</p>
+              <h3 class="font-bold text-terracotta-on-dark">Building</h3>
+              <p class="leading-relaxed text-muted-light">
+                {currentFocus.building}
+              </p>
             </div>
             <div class="space-y-1">
-              <h3 class="font-bold text-terracotta-on-dark">Leading &amp; Mentoring</h3>
-              <p class="leading-relaxed text-muted-light">{currentFocus.leadingAndMentoring}</p>
+              <h3 class="font-bold text-terracotta-on-dark">
+                Leading &amp; Mentoring
+              </h3>
+              <p class="leading-relaxed text-muted-light">
+                {currentFocus.leadingAndMentoring}
+              </p>
             </div>
             <div class="space-y-1">
               <h3 class="font-bold text-terracotta-on-dark">Reading</h3>
               <ul class="space-y-1 text-muted-light">
-                {currentFocus.reading.map(({ title, note }) => (
+                {currentFocus.reading.map(({ title }) => (
                   <li>
-                    <em>{title}</em>{note && <> — {note}</>}
+                    <em>{title}</em>
                   </li>
                 ))}
               </ul>
@@ -64,18 +85,35 @@ const updatedMonth = new Intl.DateTimeFormat('en-US', {
           </div>
         </section>
 
-        <h2 class="pt-2 font-editorial text-xl font-bold text-ink">Core Beliefs I Lead By</h2>
+        <h2 class="pt-2 font-editorial text-xl font-bold text-ink">
+          Core beliefs I lead by
+        </h2>
         <div class="space-y-3">
           <section class="rounded-xl border border-hairline bg-sand p-4">
-            <h3 class="font-mono text-sm font-bold text-terracotta">1. Lead From the Front</h3>
+            <h3 class="font-mono text-sm font-bold text-terracotta">
+              1. Lead by example
+            </h3>
             <p class="mt-1 text-sm text-muted">
-              Never assign a workflow or linter tool to your team that you haven't personally benchmarked and tested yourself.
+              Know the work before you delegate it. When ambiguity arises, help
+              the team find a path forward.
             </p>
           </section>
           <section class="rounded-xl border border-hairline bg-sand p-4">
-            <h3 class="font-mono text-sm font-bold text-terracotta">2. AI Multiplies Leverage, Not Quality</h3>
+            <h3 class="font-mono text-sm font-bold text-terracotta">
+              2. AI multiplies leverage, not quality
+            </h3>
             <p class="mt-1 text-sm text-muted">
-              AI generates boilerplate in seconds. Leaders must teach teams how to write evals and maintain crisp architectural boundaries.
+              AI speeds up output, not judgment. Teach teams to use it well and
+              keep architectural boundaries clear.
+            </p>
+          </section>
+          <section class="rounded-xl border border-hairline bg-sand p-4">
+            <h3 class="font-mono text-sm font-bold text-terracotta">
+              3. Silence isn't feedback
+            </h3>
+            <p class="mt-1 text-sm text-muted">
+              Give feedback early and specifically. People deserve to know
+              what to keep doing and what to change.
             </p>
           </section>
         </div>
@@ -86,17 +124,32 @@ const updatedMonth = new Intl.DateTimeFormat('en-US', {
           Connect & Socials
         </h2>
         <nav aria-label="Social profiles" class="space-y-3 font-mono text-sm">
-          <a class="flex items-start gap-3 text-ink hover:text-terracotta" href="https://github.com/pgrangeiro" rel="noreferrer" target="_blank">
-            <i aria-hidden="true" class="bi bi-github mt-0.5 shrink-0 text-xl leading-none"></i>
+          <a
+            class="flex items-start gap-3 text-ink hover:text-terracotta"
+            href="https://github.com/pgrangeiro"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <i
+              aria-hidden="true"
+              class="bi bi-github mt-0.5 shrink-0 text-xl leading-none"
+            ></i>
             <span>GitHub (@pgrangeiro)</span>
           </a>
-          <a class="flex items-start gap-3 text-ink hover:text-terracotta" href="https://www.linkedin.com/in/paulagrangeiro/" rel="noreferrer" target="_blank">
-            <i aria-hidden="true" class="bi bi-linkedin mt-0.5 shrink-0 text-xl leading-none"></i>
+          <a
+            class="flex items-start gap-3 text-ink hover:text-terracotta"
+            href="https://www.linkedin.com/in/paulagrangeiro/"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <i
+              aria-hidden="true"
+              class="bi bi-linkedin mt-0.5 shrink-0 text-xl leading-none"
+            ></i>
             <span>LinkedIn (/in/paulagrangeiro)</span>
           </a>
         </nav>
       </aside>
     </div>
-
   </div>
 </BaseLayout>
