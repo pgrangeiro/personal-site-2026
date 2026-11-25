@@ -1,0 +1,36 @@
+name: Build and tests
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Set up project
+        uses: ./.github/actions/setup-project
+
+      - name: Build production site
+        run: pnpm build
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Set up project
+        uses: ./.github/actions/setup-project
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run unit tests
+        run: pnpm test
+
+      - name: Run end-to-end tests
+        run: pnpm run test:e2e
