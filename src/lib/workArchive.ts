@@ -11,6 +11,7 @@ export interface ArchiveState {
 interface PagefindResultData {
   url: string;
   meta: Record<string, string | undefined>;
+  content?: string;
 }
 
 interface PagefindResult {
@@ -74,6 +75,47 @@ function getMetadataValue(meta: PagefindResultData['meta'], key: string): string
   const value = meta[key];
   if (!value) throw new Error(`The search index is missing the "${key}" field.`);
   return value;
+}
+
+function isPagefindResultData(value: unknown): value is PagefindResultData {
+  if (
+    typeof value !== 'object' ||
+    value === null ||
+    !('url' in value) ||
+    typeof value.url !== 'string' ||
+    !('meta' in value) ||
+    typeof value.meta !== 'object' ||
+    value.meta === null ||
+    Array.isArray(value.meta)
+  ) {
+    return false;
+  }
+  return (
+    Object.values(value.meta).every(
+      (field) => typeof field === 'string' || typeof field === 'undefined',
+    ) &&
+    (!('content' in value) || typeof value.content === 'string')
+  );
+}
+
+export function createLocalArchiveApi(posts: PagefindResultData[]): PagefindArchiveApi {
+  return {
+    async search(query, options) {
+      const terms = query?.trim().toLowerCase().split(/\s+/).filter(Boolean) ?? [];
+      const results = posts
+        .filter(({ meta, content }) => {
+          if (options.filters?.category && meta.category !== options.filters.category) {
+            return false;
+          }
+          const searchableText = [...Object.values(meta), content ?? ''].join(' ').toLowerCase();
+          return terms.every((term) => searchableText.includes(term));
+        })
+        .sort((a, b) => (b.meta.date ?? '').localeCompare(a.meta.date ?? ''))
+        .map((data) => ({ data: async () => data }));
+
+      return { results };
+    },
+  };
 }
 
 function getArtifacts(raw: string): Artifact[] {
@@ -208,9 +250,25 @@ async function loadPagefind(): Promise<PagefindArchiveApi> {
   return pagefind as PagefindArchiveApi;
 }
 
+async function loadDevelopmentSearch(): Promise<PagefindArchiveApi> {
+  const response = await fetch('/work/search-index.json');
+  if (!response.ok) {
+    throw new Error(`Unable to load the development search index (${response.status}).`);
+  }
+  const parsed: unknown = await response.json();
+  if (!Array.isArray(parsed) || !parsed.every(isPagefindResultData)) {
+    throw new Error('The development search index has an invalid format.');
+  }
+  return createLocalArchiveApi(parsed);
+}
+
+async function loadArchiveApi(): Promise<PagefindArchiveApi> {
+  return import.meta.env.DEV ? loadDevelopmentSearch() : loadPagefind();
+}
+
 export async function initializeWorkArchive(
   root: HTMLElement,
-  loadApi: () => Promise<PagefindArchiveApi> = loadPagefind,
+  loadApi: () => Promise<PagefindArchiveApi> = loadArchiveApi,
 ): Promise<void> {
   function required<T extends Element>(element: T | null, selector: string): T {
     if (!element) throw new Error(`The Work & Notes archive is missing "${selector}".`);

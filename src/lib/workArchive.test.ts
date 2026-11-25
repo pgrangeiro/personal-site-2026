@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
+  createLocalArchiveApi,
   getArchiveUrl,
   initializeWorkArchive,
   readArchiveState,
@@ -73,6 +74,58 @@ afterEach(() => {
 });
 
 describe('Work & Notes archive', () => {
+  it('searches local archive content and applies category and date sorting', async () => {
+    const api = createLocalArchiveApi([
+      {
+        url: '/work/older-evaluation/',
+        content: 'A practical guide to evaluation.',
+        meta: {
+          title: 'Evaluation Guide',
+          category: 'prototypes',
+          date: '2026-03-15',
+        },
+      },
+      {
+        url: '/work/newer-evaluation/',
+        content: 'Another evaluation article.',
+        meta: {
+          title: 'Evaluation Notes',
+          category: 'prototypes',
+          date: '2026-11-15',
+        },
+      },
+      {
+        url: '/work/leadership/',
+        content: 'Evaluation for engineering teams.',
+        meta: {
+          title: 'Leadership Notes',
+          category: 'leadership',
+          date: '2026-12-01',
+        },
+      },
+    ]);
+
+    const response = await api.search('evaluation', {
+      filters: { category: 'prototypes' },
+      sort: { date: 'desc' },
+    });
+    const results = await Promise.all(response.results.map((result) => result.data()));
+    expect(results.map(({ url }) => url)).toEqual([
+      '/work/newer-evaluation/',
+      '/work/older-evaluation/',
+    ]);
+
+    const contentMatch = await api.search('evaluation practical', {
+      sort: { date: 'desc' },
+    });
+    await expect(
+      Promise.all(contentMatch.results.map((result) => result.data())),
+    ).resolves.toHaveLength(1);
+    await expect(contentMatch.results[0].data()).resolves.toMatchObject({
+      url: '/work/older-evaluation/',
+    });
+  });
+
   it('restores valid shareable category, query, and page state from the URL', () => {
     const state = readArchiveState(
       new URL('https://example.com/work/?category=ai&q=agents&page=3'),
