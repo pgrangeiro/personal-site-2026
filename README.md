@@ -34,6 +34,8 @@ pnpm check
 pnpm build
 ```
 
+Husky runs `pnpm test` and `pnpm run test:e2e` automatically before each commit. The hook is installed when dependencies are installed with `pnpm install`.
+
 The generated site and search index are written to `dist/`. Preview that build locally with:
 
 ```sh
