@@ -4,7 +4,7 @@ Personal site built with Astro, React, TypeScript, and Tailwind CSS. Astro rende
 
 ## Requirements
 
-- Node.js `24.x`
+- Node.js `26.x`
 - pnpm (Corepack is included with Node.js)
 
 Enable pnpm through Corepack if needed:
