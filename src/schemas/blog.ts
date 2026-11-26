@@ -27,7 +27,6 @@ export const blogSchema = z.object({
   readTime: z.string().min(1),
   artifacts: z.array(artifactSchema).default([]),
   featured: z.boolean().default(false),
-  hasInteractiveComponent: z.boolean().default(false),
 });
 
 export type BlogData = z.infer<typeof blogSchema>;

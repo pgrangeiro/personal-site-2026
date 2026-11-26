@@ -40,7 +40,7 @@ const postPublished = true;
 ```
 ````
 
-Required metadata includes `title`, `description`, `pubDate`, `type`, `category` (`id` and `label`), `tldr`, and `readTime`. The Astro content schema validates it during the build; invalid or missing required values fail the build. Category filters and static category routes are generated from category metadata in published posts. A category ID cannot be paired with multiple labels. `artifacts`, `featured`, and `hasInteractiveComponent` are optional. Setting `hasInteractiveComponent: true` renders the interactive prompt demo after the article.
+Required metadata includes `title`, `description`, `pubDate`, `type`, `category` (`id` and `label`), `tldr`, and `readTime`. The Astro content schema validates it during the build; invalid or missing required values fail the build. Category filters and static category routes are generated from category metadata in published posts. A category ID cannot be paired with multiple labels. `artifacts` and `featured` are optional.
 
 ## Verify before publishing
 

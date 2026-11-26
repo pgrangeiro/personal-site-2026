@@ -93,16 +93,11 @@ test('archive controls wrap responsively and retain search and category interact
   const filters = page.locator('nav[aria-label="Filter work by category"]');
   const filterLinks = filters.locator('a');
   const viewportWidth = page.viewportSize()?.width ?? 0;
-  const filterRows = await filterLinks.evaluateAll((links) => {
-    const rowPositions = links.map((link) =>
-      Math.round(link.getBoundingClientRect().top),
-    );
-    return new Set(rowPositions).size;
-  });
+  const flexWrap = await filters.evaluate((element) => getComputedStyle(element).flexWrap);
   if (viewportWidth < 640) {
-    expect(filterRows).toBeGreaterThan(1);
+    expect(flexWrap).toBe('wrap');
   } else {
-    expect(filterRows).toBe(1);
+    expect(flexWrap).toBe('nowrap');
   }
 
   const results = page.locator('[data-archive-results] article');

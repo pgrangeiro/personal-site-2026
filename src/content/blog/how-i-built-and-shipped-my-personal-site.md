@@ -26,7 +26,7 @@ Here is how the full workflow played out.
 
 - **Product, UX and interactive prototype:** Gemini
 - **Code implementation and refactoring:** GitHub Copilot Fusion (VS Code, 200 quota budget)
-- **Architecture, testing and hosting:** React + Atom, E2E tests with Playwright, GitHub CI, and Vercel
+- **Architecture, testing and hosting:** [Astro](https://astro.build/), E2E tests with [Playwright](https://playwright.dev/), [GitHub](https://github.com/) CI, and [Vercel](https://vercel.com/)
 
 ### Hour 1: Designing like a Product Team (before touching code)
 
